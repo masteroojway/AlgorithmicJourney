@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Trees Page 2</title>
+</head>
+<body>
+    <h1>Binary Trees - 2</h1>
+    <h2>Covered in this section: </h2>
+    <ul>
+        <li>Depth First Search</li>
+        <li>Breadth First Search</li>
+    </ul>
+    <h2>Depth First Search</h2>
+    <img src="./pictures/binarytree4.png" height = 400px>
+    <section>
+        <h2>Preorder Traversal</h2>
+        <p>Follows the <strong>Root → Left → Right</strong> order.</p>
+        <ul>
+          <li>Visit the root node first</li>
+          <li>Traverse the left subtree</li>
+          <li>Traverse the right subtree</li>
+        </ul>
+        <pre><code>void preorder(Node* N) {
+        if (N == nullptr) return;
+    
+        visit(N);             // Root
+        preorder(N->left);    // Left
+        preorder(N->right);   // Right
+    }</code></pre>
+      </section>
+    
+      <section>
+        <h2>Inorder Traversal</h2>
+        <p>Follows the <strong>Left → Root → Right</strong> order.</p>
+        <ul>
+          <li>Traverse the left subtree</li>
+          <li>Visit the root node</li>
+          <li>Traverse the right subtree</li>
+        </ul>
+        <pre><code>void inorder(Node* N) {
+        if (N == nullptr) return;
+    
+        inorder(N->left);     // Left
+        visit(N);             // Root
+        inorder(N->right);    // Right
+    }</code></pre>
+      </section>
+    
+      <section>
+        <h2>Postorder Traversal</h2>
+        <p>Follows the <strong>Left → Right → Root</strong> order.</p>
+        <ul>
+          <li>Traverse the left subtree</li>
+          <li>Traverse the right subtree</li>
+          <li>Visit the root node</li>
+        </ul>
+        <pre><code>void postorder(Node* N) {
+        if (N == nullptr) return;
+    
+        postorder(N->left);   // Left
+        postorder(N->right);  // Right
+        visit(N);             // Root
+    }</code></pre>
+      </section>
+      <section>
+        <h2>Breadth First Search (BFS)</h2>
+        <p>
+          Also known as <strong>Level Order Traversal</strong>, BFS visits all nodes at each depth level before moving to the next level.
+          It proceeds level by level, from top to bottom and left to right.
+        </p>
+        <ul>
+          <li>Starts from the root node</li>
+          <li>
+            Uses a queue to keep track of nodes at the current level and their children, ensuring that all nodes of one level
+            are processed before moving to the next
+          </li>
+          <li>Processes nodes in <strong>FIFO</strong> (First-In-First-Out) order</li>
+        </ul>
+      
+        <pre><code>void bfs(Node* root) {
+          if (root == nullptr) return;
+      
+          std::queue&lt;Node*&gt; q;
+          q.push(root);
+      
+          while (!q.empty()) {
+              Node* current = q.front();
+              q.pop();
+      
+              visit(current);  // Process the current node
+      
+              if (current-&gt;left)  q.push(current-&gt;left);
+              if (current-&gt;right) q.push(current-&gt;right);
+          }
+      }</code></pre>
+      </section>
+      
+      
+      <section>
+        <h2>Practice Assignment</h2>
+        <p>Test your understanding of DFS by solving the following problems:</p>
+        <ul>
+          <li>
+            <strong>Preorder:</strong>
+            <a href="https://leetcode.com/problems/binary-tree-preorder-traversal/description/" target="_blank" rel="noopener noreferrer" class="practice-link">
+              Binary Tree Preorder Traversal (LeetCode)
+            </a>
+          </li>
+          <li>
+            <strong>Inorder:</strong>
+            <a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/" target="_blank" rel="noopener noreferrer" class="practice-link">
+              Binary Tree Inorder Traversal (LeetCode)
+            </a>
+          </li>
+          <li>
+            <strong>Postorder:</strong>
+            <a href="https://leetcode.com/problems/binary-tree-postorder-traversal/description/" target="_blank" rel="noopener noreferrer" class="practice-link">
+              Binary Tree Postorder Traversal (LeetCode)
+            </a>
+          </li>
+          <li>
+            <strong>BFS:</strong>
+            <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/description/"target="_blank" rel="noopener noreferrer" class="practice-link">
+
+                binary Tree BFS (LeetCode)
+            </a>
+            </li>
+        </ul>
+      </section>
+      <button><a href="./binary_trees3.html">next lesson</a></button>
+</body>
+</html>
