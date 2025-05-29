@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Graphs - 3</h1>
+    <h2>Covered in this section:</h2>
+    <ul>
+        <li>Checking Bipartiteness</li>
+        <li>Cycle detection in graphs</li>
+    </ul>
+    <h2>Checking Bipartiteness</h2>
+    <p>
+        A bipartite graph is a graph whose vertices can be divided into two disjoint sets such that no two nodes within the same set are connected by an edge. Example:
+    </p>
+    <img src="./pictures/graph3.png" height = 350px>;
+    
+    <p>
+        There are two main ways to check for Bipartiteness:
+        <ul>
+            <li>
+                Coloring: A graph is bipartite if its nodes can be colored using two colors so that there are
+                no adjacent nodes with the same color. The idea is to color the starting node blue, all its neighbors red, all their
+                neighbors blue, and so on. Refer <a href="https://cp-algorithms.com/graph/bipartite-check.html" target="_blank">this</a> for more info.
+            </li>
+            <li>
+                Cycle length: if cycle length is odd then graph cannot be Bipartite. This is really hard to implement and generaly not used.
+            </li>
+        </ul>
+    </p>
+
+    <h2>Assignment</h2>
+    <ul>
+        <li>Try <a href = "https://leetcode.com/problems/is-graph-bipartite/description/" target="_blank">this problem</a> for standard bipartiteness check.</li>
+    </ul>
+</body>
+</html>
