@@ -11,9 +11,40 @@
     <ul>
         <li>Sorting</li>
         <li>C++ STL related to sorting</li>
+        <li>Special sorting problems</li>
     </ul>
-    <p>Sorting algorithms are well known and hence the most efficient way to sort will be to use pre built extremely
+    <p>
+        Sorting algorithms are well known and hence the most efficient way to sort will be to use pre built extremely
         efficient modules present in C++ stl.
     </p>
+    <p>Ascending sort on vector "v":</p>
+        <pre>
+            <code>sort(v.begin(),v.end());</code>
+        </pre>
+    <p>Descending sort on vector "v":</p>
+        <pre>
+            <code>sort(v.rbegin(),v.rend());</code>
+        </pre>
+    <p>But when you need to sort based on certain properties, we use comparative functions in conjunction with sort()
+        with two arguements a and b. it returns true if a is supposed to be before b in a vector. example: (Comparator to sort with respect to absolute value)
+    </p>
+    <pre>
+        <code>
+            bool cmp(int a, int b)
+            {
+                return abs(a) >= abs(b);
+            }
+
+            sort(v.begin(), v.end(), cmp);
+        </code>
+    </pre>
+    <h2>Special sorting problems</h2>
+    <h3>Inversion Index</h3>
+    <p>For this we need to learn merge sort first. <a href="https://www.geeksforgeeks.org/merge-sort/" target="_blank">GFG</a> has a very 
+        good article on merge sort and <a href="https://www.geeksforgeeks.org/inversion-count-in-array-using-merge-sort/" target="_blank">this GFG article</a> 
+    goes in depth on what this problem is and how to tackle it.</p>
+    <h3>counting sort</h3>
+    <p>This is a special case o(1) sorting method. Used when range of numbers is not large.</p>
+    
 </body>
 </html>
