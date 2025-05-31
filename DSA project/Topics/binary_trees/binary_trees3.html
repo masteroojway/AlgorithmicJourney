@@ -13,6 +13,49 @@
         <li>Additional types of tree traversals</li>
         <li>Various visual perspectives (views) of binary trees</li>
     </ul>
-    
+    <h2>Height of binary tree</h2>
+    <p>
+        The height of a binary tree is defined as the maximum depth from the root to any leaf node. The most efficient way to calculate it is through recursion.
+    </p>
+    <pre>
+    <code>
+    int height(Node* n) {
+        if (n == NULL) return 0; // base case
+        int l = height(n->left);
+        int r = height(n->right);
+        return 1 + max(l, r); // 1 + max height of left or right subtree
+    }
+    </code>
+    </pre>
+    <p>
+        Try solving <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/description/" target="_blank">this problem</a> to practice. 
+        You can also challenge yourself with 
+        <a href="https://leetcode.com/problems/balanced-binary-tree/description/" target="_blank">this slightly more complex variation</a>.
+    </p>
+    <h2>Maximum path sum</h2>
+    <p>This concept is applied in the <a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/" target="_blank">LeetCode problem: Binary Tree Maximum Path Sum</a>.</p>
+    <p>Core intuition: For each node, we compute two values:
+        <br>→ The maximum path sum starting from this node and going down one side (either left or right). This value is passed up to the parent to help it calculate its own contribution.
+        <br>→ The maximum path sum that passes through this node as a "peak" — that is, it includes both left and right paths. This value is used to update the global maximum path sum.</p>
+    <pre>
+    <code>
+    int maxsum(Node* N, int &ans)
+    {
+        if(N == nullptr) return 0;
+
+        // Recursively get max path sum from left and right
+        int lh = max(0, maxsum(N->left, ans));  // ignore if negative
+        int rh = max(0, maxsum(N->right, ans)); // ignore if negative
+
+        // Potential max path through current node
+        int temp = N->val + lh + rh;
+        ans = max(ans, temp); // update global max
+
+        // Return max path sum going upwards (one side only)
+        return N->val + max(lh, rh);
+    }
+    </code>
+    </pre>
+
 </body>
 </html>
