@@ -50,8 +50,21 @@
                 For each number <code>i</code>, the expression <code>(i >> j) & 1</code> checks if the <code>j</code>-th bit is set. 
                 If it is, we include <code>nums[j]</code> in the current subset. 
                 For example, if <code>nums = [1, 2, 3]</code> and <code>i = 5</code> (binary <code>101</code>), we include <code>nums[0]</code> and <code>nums[2]</code>, 
-                resulting in the subset <code>[1, 3]</code>. This method efficiently generates all subsets using bitmasking.
+                resulting in the subset <code>[1, 3]</code>. This method efficiently generates all subsets using bitmasking. Sample code:
             </p>
+            <pre>
+                <code>
+                    for (int i = 0; i &lt; (1 &lt;&lt; nums.size()); ++i) {
+                        vector&lt;int&gt; subset;
+                        for (int j = 0; j &lt; nums.size(); ++j) {
+                            if ((i &gt;&gt; j) &amp; 1) {
+                                subset.push_back(nums[j]);
+                            }
+                        }
+                        ans.push_back(subset);
+                    }
+                </code>
+            </pre>
             <p><a href="https://leetcode.com/problems/subsets/" target="_blank">This problem</a> ultilises the property above.</p>
                 
                 

@@ -34,10 +34,13 @@
             x = 29 => 00000000000000000000000000011101
             ~x = −30 => 11111111111111111111111111100010
         </code></pre>
-    <h3>Bit Shift Operations</h3>
+    <h3>Basic Bit Operations</h3>
     <ul>
         <li><code>x &lt;&lt; k</code>: Shifts the bits of <code>x</code> to the left by <code>k</code> positions (equivalent to multiplying by 2<sup>k</sup>)</li>
         <li><code>x &gt;&gt; k</code>: Shifts the bits of <code>x</code> to the right by <code>k</code> positions (equivalent to dividing by 2<sup>k</sup>, discarding remainder)</li>
+        <li><code>x |= (1&lt;&lt;j)</code>: set the j-th item of the set.</li>
+        <li><code>x &= ~(1&lt;&lt;j)</code>: clear the j-th item of the set.</li>
+        <li><code>(1&lt;&lt;n)-1</code>: set n starting bits of the number.</li>
     </ul>
     <h2>C++ STL</h2>
     <ul>
