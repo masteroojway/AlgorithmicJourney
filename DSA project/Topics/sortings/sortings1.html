@@ -25,18 +25,11 @@
         <pre>
             <code>sort(v.rbegin(),v.rend());</code>
         </pre>
-    <p>But when you need to sort based on certain properties, we use comparative functions in conjunction with sort()
-        with two arguements a and b. it returns true if a is supposed to be before b in a vector. example: (Comparator to sort with respect to absolute value)
+    <p>But when you need to sort based on certain properties, we use comparative functions in conjunction with sort(), like
+        the one used with priority_queue in Introduction section.
     </p>
     <pre>
-        <code>
-            bool cmp(int a, int b)
-            {
-                return abs(a) >= abs(b);
-            }
-
-            sort(v.begin(), v.end(), cmp);
-        </code>
+        <code>sort(v.rbegin(),v.rend(), cmp);</code>
     </pre>
     <h2>Special sorting problems</h2>
     <h3>Inversion Index</h3>

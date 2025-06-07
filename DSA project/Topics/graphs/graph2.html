@@ -12,6 +12,65 @@
         <li>Depth First search</li>
         <li>Breadth First search</li>
     </ul>
+    <img src="./pictures/graph4.png" height = 350px>
+    <h2>Depth First Search (a)</h2>
+    <p>DFS is a simple algorithm for traversing a graph. Everytime DFS reaches a branching node,
+        it will visit one of the unvisited nodes and continue traversing until it reaches a dead end.
+        Then it will backtrack to the last branching node and repeat the process. This is a recursive algorithm.
+    </p>
+    <pre>
+        <code>
+            void dfs(graph, node, visited) {
+                if (visited[node]) return; // node is already visited
+                visited[node] = true; // mark node as visited
+
+                //Process node
+
+                for (neighbor in graph[node]) { // for each neighbor of the node
+                    dfs(graph, neighbor, visited); // visit the neighbor
+                }
+            }
+        </code>
+    </pre>
+    <h2>Breadth First Search (b)</h2>
+    <p>
+        BFS is another algorithm for traversing a graph. It uses a queue to keep track of the nodes to visit.
+        It starts from a node, marks it as visited, and adds all its neighbors to the queue. Then it processes the first node in the queue,
+        marks it as visited, and adds all its neighbors to the queue. This process continues until the queue is empty.
+    </p>
+    <pre>
+        <code>
+            void bfs(graph, start)
+            {
+                queue&lt;int&gt; q;
+                vector&lt;bool&gt; visited(graph.size(), false);
+                q.push(start); // add the starting node to the queue
+                visited[start] = true;
+                while (!q.empty()) {
+                    int node = q.front(); // get the first node in the queue
+                    q.pop(); // remove the first node from the queue
+
+                    //Process node
+
+                    for (neighbor in graph[node]) { // for each neighbor of the node
+                        if (!visited[neighbor]) {
+                            visited[neighbor] = true;
+                            q.push(neighbor); // add it to the queue
+                        }
+                    }
+                }
+            }
+        </code>
+    </pre>
+    <p>BFS and DFS both can be used to find number of connected components of the graph and 
+        count size of each component. (a.k.a Flood Fill algorithm)</p>
+    </p>
+    <h2>Assignment</h2>
+    <ul>
+        <li>Try <a href="https://leetcode.com/problems/flood-fill/description/" target="_blank">this problem</a> on flood-fill.</li>
+        <li>Try <a href="https://leetcode.com/problems/number-of-islands/description/" target="_blank">this problem</a> on counting components. </li>
+        <li>Try <a href="https://leetcode.com/problems/number-of-provinces/description/" target="_blank">this problem</a> on counting components in undirected graph.</li>
+    </ul>
     <button><a href="./graph3.html">Next lesson</a></button>
 </body>
 </html>
