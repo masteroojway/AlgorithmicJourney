@@ -8,11 +8,15 @@
     padding: 40px;
     font-size: 100%;
     margin: 40px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 .intropage{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    text-align: center;
+    width: 100vw;
 }
