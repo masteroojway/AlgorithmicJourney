@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Graphs - 4</h1>
+    <h2>Covered in this section:</h2>
+    <ul>
+        <li>Fenwick Trees</li>
+        <li>Questions related to Range and Queries</li>
+    </ul>
+    <h2>Fenwick Trees</h2>
+    <p>
+        Fenwick Trees, also known as Binary Indexed Trees (BIT). Motivation for Fenwick Trees is to efficiently 
+        calculate prefix sums when the array is updated frequently. Normal prefix sum: <br />
+        <code>prefix[i] = prefix[i-1] + a[i]</code> <br />
+        When a random element of array is updated, the prefix sum of all elements after that element also changes.
+        To update the prefix sum, we need to iterate through all elements after the updated element. This takes O(n) time.
+        Fenwick Trees allow us to update the prefix sum in O(log n) time.
+    </p>
+    <p> 
+        In this section, LSOne is a function that returns the least significant set bit of a number. In previous sections.
+        we have seen that LSOne of a number x is equal to (x & (-x)).
+    </p>
+    <img src="./pictures/graph7.png" height= "350px">
+    <p>
+        We generally use vectors to implement Fenwick Trees. Here are the necessary code to update and query the Fenwick Tree:
+    </p>
+    <pre>
+        <code>
+            vector<int> fenwickTree(n+1, 0); // n is the size of the array
+
+            // Update function
+            void update(int index, int value) {
+                while (index &lt;= n) {
+                    fenwickTree[index] += value;
+                    index += (index & -index); // LSOne
+                }
+            }
+
+            // Query function
+            int query(int index) {
+                int sum = 0;
+                while (index > 0) {
+                    sum += fenwickTree[index];
+                    index -= (index & -index); // LSOne
+                }
+                return sum;
+            }
+        </code>
+    </pre>
+</body>
+</html>

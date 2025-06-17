@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Intro to competitive programming</h1>
+    <h2>Introduction</h2>
+    <div>
+        <h3>⚠️ Caution:</h3>
+        <p>This guide contains food-related jokes that may cause uncontrollable hunger and spontaneous laughter. Proceed on an empty stomach at your own risk!</p>
+    </div>  
+    <p>
+        Competitive programming (CP) is a mental sport where participants compete by solving programming problems under specific time and memory constraints.
+        The contests mainly combines two topics: (1) Design of algorithms (2) Implementation of algorithms.
+        <a href="https://www.youtube.com/watch?v=bVKHRtafgPc" target="_blank">This</a> video by William Lin gives a very good overview to intro to CP.
+    </p>
+    <p>
+        This guide will mainly contain pseudo code that resembles C++ as it is the programming language of choice. You can use python, java, other languages to 
+        attempt the problems given in this guide too. <a href="https://code.visualstudio.com/docs/languages/cpp" target="_blank">Here</a> is a guide to download
+        and set up C++ and VScode (IDE) on your local machine.
+    </p>
+    <h2>Basic C++</h2>
+    <p>Example of a typical C++ template:</p>
+    <pre>
+        <code>
+            #include &lt;bits/stdc++.h&gt;
+            using namespace std;
+            int main() {
+                ios::sync_with_stdio(0);
+                cin.tie(0);
+                // solution comes here
+            }
+        </code>
+    </pre>
+    <p>The first two lines in main make input and output more efficient.</p>
+    <p>The #include line at the beginning is for including standard c++ libraries. &lt;bits/stdc++.h&gt; is a library
+        that contains all necessary functions that you will use in CP. It is used by all competitive programmers that use C++. </p>
+    <p>Chapter 2 and 3 of <a href="https://darrenyao.com/usacobook/cpp.pdf" target="_blank">this book</a> explains input, output and time complexities in detail.</p>
+    <h2>Important Macros and TypeDefs</h2>
+    <p>Macros: are a feature of C++ that allow text substitution before complilation process <br />
+    Typedefs: are used to create alias for an existing data type. It <Strong>does not</Strong> create a new datatype.</p>
+    <p>Macros and typedefs significantly speed up the speed at which you can write your code and should be a part of your template. Following basic macros and 
+        typedefs are used by us:
+    </p>
+    <pre>
+        <code>
+            #define rep(i,a,b) for (int i = int(a); i &lt; int(b); i++)
+            #define ff first
+            #define ss second
+            #define yes cout&lt;&lt;"YES\n";
+            #define no cout&lt;&lt;"NO\n";
+            #define sqr(a) ((a)*(a))
+            #define pb push_back
+            typedef vector&lt;long long&gt; vi;
+            typedef pair&lt;long long, long long&gt; pi;
+            typedef long long ll;
+            const int inf = 1e9;
+            const int llinf = 4e18;
+
+        </code>
+    </pre>
+    <p>For complete utilization of this guide we recommend you to make an account in the following website: </p>
+    <ul>
+        <li><a href="https://codeforces.com/" target="_blank">CodeForces</a></li>
+        <li><a href="https://open.kattis.com/" target="_blank">Kattis</a></li>
+        <li><a href = "https://leetcode.com/" target="_blank">Leetcode</a></li>
+        <li><a href = "https://onlinejudge.org/" target="_blank">Uva online judge</a></li>
+    </ul>
+    <p>It is important to type code fast to place higher in competitive programming contest. <a href="https://www.keybr.com/" target="_blank">KeyBr</a> is
+     a good website to practice typing to get faster.</p>
+    <h2>Output Formating</h2>
+    <p>Many times in a contest you will be required to output numbers uptill a specific decimal
+    places. For example, if you are required to output a number upto 6 decimal places, you can use the following code:</p>
+    </p>
+    <p>
+        In competitive programming contests, you may often need to format numbers to a specific number of decimal places. For instance, if you are required to output a number up to 6 decimal places
+        or output till n significant digits. For this we introduce <code>setprecision</code>.
+        <br />
+        For giving output with a specific number of decimal places, you can use the following code: <br />
+        <code>cout &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; x;</code> (code for outputting a number x with 6 decimal places) <br \>
+        <code>cout &lt;&lt; setprecision(3) &lt;&lt; x;</code> (code for outputting a number with 3 significant digits)
+    </p>
+    <p>There will be excersizes on the bottom of every page for your reference. Happy CPing :) </p>
+    <section id="assgn">
+        <ul>
+            <li>New beginnings: <a href="https://open.kattis.com/problems/hello">Hello world</a>.</li>
+            <li>
+                Try <a href = "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1012" target="_blank">UVa 10071</a> to 
+                understand how to deal with continous input stream that ends with EOF
+            </li>
+        </ul>
+    </section>
+    <button><a href="./start2.html">Next Lesson</a></button>
+</body>
+</html>

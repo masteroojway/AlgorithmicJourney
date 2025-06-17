@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <h1>Dynamic Programming - 1</h1>
+        <h2>Covered in this section: </h2>
+        <ul>
+          <li>Fundamentals and core concepts of Dynamic Programming</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Introduction</h2>
+        <p>
+          Dynamic Programming (DP) is a powerful problem-solving technique used in computer science to solve complex problems
+          by breaking them down into simpler, overlapping subproblems. It is primarily an optimization over plain recursion,
+          where previously computed results are reused to avoid redundant computations.
+        </p>
+        <p>
+          Dynamic Programming is commonly used for:
+          <ol>
+            <li>Finding the optimal solution to a problem (e.g., minimum/maximum value, longest path, etc.)</li>
+            <li>Counting the total number of possible solutions (e.g., number of ways to reach a target)</li>
+          </ol>
+        </p>
+      </section>
+      <p>The best way to do DP is understanding the intuition behind it via multiple examples like :</p>
+      <section>
+        <h3>
+          <a href="https://cses.fi/problemset/task/1633" target="_blank">Dice Problem (CSES)</a>
+        </h3>
+        <p>
+          Given a target sum <code>n</code>, you need to compute the total number of distinct sequences of dice rolls (each roll giving 1 to 6) that sum up to exactly <code>n</code>.
+        </p>
+        <p>
+          This is a classic Dynamic Programming problem where the recurrence relation is:
+        </p>
+        <pre><code>f(n) = f(n-1) + f(n-2) + f(n-3) + f(n-4) + f(n-5) + f(n-6)</code></pre>
+        <p>
+          With the base case:
+          <br>
+          <code>f(0) = 1</code> — there's one way to make a sum of 0 (by doing nothing).
+        </p>
+        <p>
+          For all negative values of <code>n</code>, we return 0, since it's not possible to reach negative sums with positive dice rolls.
+        </p>
+      </section>
+      
+      <button><a href="./dynamic_prog2.html">Next lesson</a></button>
+</body>
+</html>

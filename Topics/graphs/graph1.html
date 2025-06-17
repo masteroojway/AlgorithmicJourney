@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Graphs - 1</h1>
+    <h2>Covered in this section:</h2>
+    <ul>
+        <li>Introduction to Graphs</li>
+        <li>Types of Graphs and Key Terminology</li>
+        <li>Graph representations</li>
+    </ul>
+    <p>
+        Graphs are data structures consisting of nodes (also called vertices) and edges. 
+        They are used to model and solve problems involving objects and the relationships between them.
+    </p>
+    <h2>Key Terminology</h2>
+    <ul>
+        <li>
+            <h3>Path and Cycle</h3>
+            <p>Path is a sequence of distinct vertices between node a and b. A path is called
+                 cycle if the first and last node is the same. Example:
+            </p>
+            <img src="./pictures/graph1.png" width = 350px>
+        </li>
+        <li>
+            <h3>Components of graph</h3>
+            <p>The connected parts of a graph are called its components. If a graph has only one component, it is called <strong>a connected graph</strong>.</p>
+            <img src = "./pictures/graph2.png" height = 250px>
+        </li>
+    </ul>
+    <h2>Graph representations</h2>
+    <ul>
+        <li>
+            <h3>Adjacency List</h3>
+            <p>
+                In a graph, every node <code>X</code> is associated with an adjacency list that contains all nodes it is directly connected to (i.e., its neighbors). 
+                For a directed graph, an edge from node <code>u</code> to node <code>v</code> is represented by adding <code>v</code> to the adjacency list of <code>u</code>.
+                Here's an example:
+            </p>
+            <pre>
+            <code>
+                    vector&lt;int&gt; adj[N]; // N is the number of nodes
+
+                    adj[1].push_back(2); // Edge from 1 to 2
+                    adj[2].push_back(3); // Edge from 2 to 3
+                    adj[2].push_back(4); // Edge from 2 to 4
+            </code>
+            </pre>
+            <p>
+                For undirected graph => adjacency list will be in both directions [i] = {j} and [j] = {i}. For weighted edges, we can use the following:
+            </p>
+            <pre>
+                <code>
+                    vector&lt;pair&lt;int, int&gt;&gt; adj[N]; // N is the number of nodes
+    
+                    adj[1].push_back({2,5}); // Edge from 1 to 2 of weight 5
+                    adj[2].push_back({3,6}); // Edge from 2 to 3 of weight 6
+                    adj[2].push_back({4,1}); // Edge from 2 to 4 of weight 1
+                </code>
+            </pre>
+        </li>
+        <li>
+            <h3>Adjacency Matrix</h3>
+            <p>
+                stores which nodes have edges between them in form of a matrix.
+            </p>
+            <pre>
+                <code>
+                    int adj[N][N];
+                    adj[2][3] = 5; //Edge from 2 to 3 of weight 5
+                    adj[6][2] = 3; //Edge from 6 to 2 of weight 3
+                </code>
+            </pre>
+        </li>
+        <li>
+            <h3>Edge list</h3>
+            <p>
+                Stores edges in the form of pair of numbers representing nodes. Example:
+            </p>
+            <pre>
+                <code>
+                    vector&lt;pair&lt;int, int&gt;&gt; edges;
+                    edges.push_back({2,3});// edge between 2 and 3 nodes
+                    edges.push_back({3,4});// edge between 3 and 4 nodes
+                    edges.push_back({4,1});// edge between 4 and 1 nodes
+                </code>
+            </pre>
+            <p>
+                If the nodes are weighted then we can expand pair to tuple and store weight in the last index. Example:
+            </p>
+            <pre>
+                <code>
+                    vector&lt;tuple&lt;int, int, int&gt;&gt; edges;
+                </code>
+            </pre>
+        </li>
+    </ul>
+    <p>What happens when vertex labels are not labelled from 0 to n-1 or label is not 
+        a number all toghether??, Suppose labels are strings, then we can use a map to store the index of each vertex.
+        Example: unordered_map&lt;string, vector&lt;string&gt;&gt; adj;
+    </p>
+    <button><a href="./graph2.html">Next Lesson</a></button>
+</body>
+</html>

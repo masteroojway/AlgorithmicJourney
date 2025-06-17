@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Intro to competitive programming - 2</h1>
+    <h2>Covered in this section: </h2>
+    <ul>
+        <li>Important Data structures like Queue and stack</li>
+        <li>Important problems related to Queue and stack</li>
+    </ul>
+    <h2>Stack</h2>
+    <p>Stack is a linear data structure used to store elements. It follows <strong>LIFO</strong>
+     (Last-in-First-out) principle. It is reminiscent of literal "stacks" in the real world.</p>
+     <p>C++ STL related to stack includes:</p>
+     <ul>
+        <li><code>push()</code>: is used for adding an element to the top of stack.</li>
+        <li><code>top()</code>: used to extract information of the topmost (most recent) element of the stack.</li>
+        <li><code>pop()</code>: used to remove the top most element of stack.</li>
+        <li><code>empty()</code>: Returns true if the stack is empty and returns false when stack has elements.</li>
+     </ul>
+     <h2>Queue</h2>
+     <p>is also a linear data structure like stack. However, unlike stack, it follows <strong>FIFO</strong>
+     (First-in-First-out) principle. It is reminiscent of literal "queues" in the real world.</p>
+     <p>C++ STL related to queues:</p>
+     <ul>
+        <li><code>push()</code>: Adds an element to the end of the queue.</li>
+        <li><code>pop()</code>: Removes the front element of the queue.</li>
+        <li><code>empty()</code>: Returns <code>true</code> queue is empty, otherwise returns <code>false</code>.</li>
+        <li><code>front()</code>: Returns a reference to the first (front) element of the queue without removing it.</li>
+        <li><code>back()</code>: Returns a reference to the last (back) element of the queue without removing it.</li>
+      </ul>
+    <h2>Deque (Double ended queue)</h2>
+    <p>is like queue data structure except it supports operations like that of queue at both ends with same time complexity.
+         C++ STL related to deque includes:
+    </p>
+    <ul>
+        <li><code>push_back()</code>: Adds an element to the end (back) of the deque.</li>
+        <li><code>push_front()</code>: Inserts an element at the beginning (front) of the deque.</li>
+        <li><code>pop_back()</code>: Removes the last (back) element of the deque.</li>
+        <li><code>pop_front()</code>: Removes the first (front) element of the deque.</li>
+    </ul>
+    <h2>Important problems</h2>
+    <h3>Brackets / parenthesis matching</h3>
+    <p><a href="https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/" target="_blank">This GFG article</a> sums up 
+    the problem and its soln well. Its often asked in technical interviews and uses Stack data structure.</p>
+    <h3>In, Post, Pre - fix calculators</h3>
+    <p>Priority order of operators: ^ (power) => [/ (division) and * (multiplication)] => [+ (Addn) and - (substraction)] [BODMAS rule].
+        <a href="https://www.youtube.com/watch?v=t7YWDiz8LMY" target="_blank">This YT video</a> is a good resource for understanding the calculator types.
+        <a href="https://www.youtube.com/watch?v=Wz85Hiwi5MY" target="_blank">This YT video</a> explains <strong>Shunting yard algorithm</strong>. Try to implement
+        it and test with testcase: 4*(1+2*(9/3)-5) ans: 41293/*+5-*.
+    </p>
+    <p>post fix calculator: <br \>
+        we start with an empty stack and rad expression from left to right. when we encounter an operand, we pop 2 elements from stack and do operation and pop
+         the number we got back into the stack.
+    </p>
+    <button><a href = "start3.html">Next Lesson</a></button>
+</body>
+</html>
