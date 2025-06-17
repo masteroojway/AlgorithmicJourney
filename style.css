@@ -2,3 +2,16 @@
     background-color: blanchedalmond;
     font-family: Arial, Helvetica, sans-serif;
 }
+.topicbtn{
+    display: flex;
+    width: 40%;
+    padding: 40px;
+    font-size: large;
+    margin: 40px;
+}
+.intropage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
