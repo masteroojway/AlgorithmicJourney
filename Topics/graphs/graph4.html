@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Graphs - 4</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -13,10 +13,59 @@
         <li>Disjoint Set Union (DSU)</li>
     </ul>
     <h2>Disjoint Set Union (DSU)</h2>
-    <img src="./pictures/graph6.png" height="350px">
+    <img src="./pictures/graph6.png" alt="Graph illustration" height="350px">
     <p>
-        Disjoint sets are sets that do not share any elements.
+        Disjoint sets are sets that do not share any elements. They are commonly used in algorithms to keep track of 
+        connected components in a graph or to determine if two elements belong to the same set efficiently.
+        The basic idea behind DSU is to ensure that each set is represented by only one unique item, often called the "representative" or "leader" of the set. 
+        This is achieved using two main operations:
     </p>
+    <ul>
+        <li><strong>Find:</strong> Determines the representative of the set containing a particular element.</li>
+        <li><strong>Union:</strong> Merges two sets into one by connecting their representatives.</li>
+    </ul>
+    <p>
+        To perform DSU, we store two indices:
+    </p>
+    <ul>
+        <li><strong>Parent element:</strong> Initially, every element is its own parent, so <code>p[i] = i</code>.
+            If item <code>i</code> is the representative of the set containing element <code>j</code>, then <code>p[j] = i</code>.
+        </li>
+        <li><strong>Rank of each tree:</strong> Helps keep the height of the tree shorter. Initially, all 
+            nodes have a rank of 0, which changes as we join nodes. This will be implemented later in union operation.
+        </li>
+    </ul>
+    <h3>Find Set Operation</h3>
+    <p>
+        The <strong>Find</strong> operation returns the representative element of a set. It uses path compression to 
+        set the parent element of a disjoint set to a distinct parent value. If two elements have the same index, 
+        they belong to the same set.
+    </p>
+    <pre><code>
+        // Find which set an element belongs to
+        int findset(int index) {
+            if (parent[index] == index) return index;
+            return parent[index] = findset(parent[index]); // Path compression
+        }
+    </code></pre>
+    <h3>Union Set Operation</h3>
+    <p>
+        This operation is used to merge two disjoint sets into one. unionset(i, j) will cause set with element i
+        and set with element j to merge. To make resulting tree as short as possible, we now use the information contained
+        in rank vector, and ensure that rank[parent of i] &lt;= rank[parent of j] and merge i into j.
+    </p>
+    <pre><code>
+        void unionset(int i, int j){
+            if(findset(i) == findset(j)) return;
+            int x = findset(i), y = findset(j);
+            if(x > y)
+            {
+                swap(x,y);
+            }
+            p[x] = y;
+            if(rank[x] == rank[y]) rank[y]++;
+        }
+    </code></pre>
     <button><a href="graph5.html">Next Lesson</a></button>
 </body>
 </html>
