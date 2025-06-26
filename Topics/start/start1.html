@@ -83,6 +83,24 @@
         <code>cout &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; x;</code> (code for outputting a number x with 6 decimal places) <br \>
         <code>cout &lt;&lt; setprecision(3) &lt;&lt; x;</code> (code for outputting a number with 3 significant digits)
     </p>
+    <p>
+        It's important to understand the difference between <code>cin</code> and <code>getline</code> in C++:
+    </p>
+    <ul>
+    <li>
+        <code>cin</code> stops reading input at the first whitespace character (such as a space <code>' '</code> or newline <code>'\n'</code>). It also <strong>leaves the whitespace character</strong> (like <code>'\n'</code>) in the input stream, which can cause issues if not handled properly.
+    </li>
+    <li>
+        <code>getline</code>, on the other hand, reads input until it encounters a newline character <code>'\n'</code>. It <strong>consumes and removes the newline</strong> from the input stream, allowing you to safely read full lines of text, including spaces.
+    </li>
+    </ul>
+    <p>
+        Generally, this behavior is not a problem. However, when using <code>getline</code> after <code>cin</code>, 
+        <code>cin</code> leaves the <code>'\n'</code> character in the input stream. 
+        As a result, <code>getline</code> interprets it as an empty line. 
+        To avoid this, we use <code>cin.ignore()</code> to remove the leftover <code>'\n'</code> before calling <code>getline()</code>.
+    </p>
+
     <p>There will be excersizes on the bottom of every page for your reference. Happy CPing :) </p>
     <section id="assgn">
         <ul>

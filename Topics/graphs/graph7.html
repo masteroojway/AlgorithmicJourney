@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Graphs - 7</h1>
+    <h2>Covered in this section:</h2>
+    <ul>
+        <li>Bridges</li>
+        <li>Articulations Points</li>
+    </ul>
+    <h2>Bridges</h2>
+    <!--TODO: add a picture-->
+    <p>
+        A bridge is an edge in graph on whose removal, the graph split into multiple components. We need to detect which edge is
+        a bridge. It is done by maintaining 2 vectors:
+        <ul>
+            <li>dfs_num[n]: stores the iteration count, when the vertex u is visited for the first time.</li>
+            <li>dfs_low[n]: is initially equal to dfs_num, stores the least value of node that can be reached using a 
+                "back edge".
+            </li>
+        </ul>
+    </p>
+    <h2>Articulation points</h2>
+    <!--TODO: add a picture-->
+    <p>Atriculation point is a point on whose removal, the graph breaks into multiple components.</p>
+</body>
+</html>

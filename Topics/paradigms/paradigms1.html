@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <h1>Coding paradigms - 1</h1>
+    <h2>Covered in this section: </h2>
+    <ul>
+        <li>Brute Force</li>
+    </ul>
+    <h2>Brute Force</h2>
+    <p>
+        is also known as Complete Search. It is a method that involves traversing the search space entirely.
+        One of the ways to optimize brute force is by pruning and traversing relavant parts of the search space.
+        It might be unoptimized but a bug free complete search will never give a wrong answer verdict as it explores the
+        entire search space. Brute is learnt best by practicing. <a href="https://codeforces.com/" target="_blank">Codeforces</a>
+        divisions usually have atleast 1 brute force easy and 1 medium level brute force question every contest (div2 and 3).
+        However there are some techniques and patterns discussed below that help in applying these techniques:
+    </p>
+    <h3>Permutations of an Array/String</h3>
+    <p>
+        <img src="./pictures/paradigms1.png" height="350px">
+    </p>
+    <p>
+        To generate all permutations of an array, we use recursion to fix each index and backtracking
+        to explore all configurations by restoring the original state after each recursive call.
+    </p>
+    <p>
+        At each recursive step, we place each remaining element at the current index, generate all permutations
+        for the rest, and then backtrack (swap back) to restore the array for the next iteration.
+    </p>
+    <pre><code>
+        nums = {0,1,2 ....};
+        void permutations(int index, vi &nums){
+            if(index == n)
+            {
+                //process this permutation ...
+                return;
+            }
+            for(int i = index; i < n;i++)
+            {
+                swap(nums[i], nums[index]);
+                permutation(index+1, nums);
+                swap(nums[i], nums[index]); // backtracking
+            }
+        }
+    </code></pre>
+    <h3>Josephus Problem</h3>
+    <p><a href="https://www.youtube.com/watch?v=uCsD3ZGzMgE" target="_blank">This Numberphile video</a> on 
+    josephus problem when you have to kill alternate people explain very well how you should approach a problem.
+    Similarly try to see what would happen if every kth person was killed and not every 2nd person.</p>
+
+</body>
+</html>
