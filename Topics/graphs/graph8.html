@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Graphs - 8</h1>
+    <h2>Covered in this section:</h2>
+    <ul>
+        <li>Single source shortest paths (SSSP)</li>
+        <li>Dijkstra's Algorithm</li>
+        <li>Bellman-Ford Algorithm</li>
+    </ul>
+    <h2>SSSP Motivation</h2>
+    <p>
+        Problem Statement: Given a weighted graph G and source vertex s, what are the shortest paths from s to all other vertices
+        of G? One example of shortest single source path algorithm is Maps, getting you from one point to another in the 
+        shortest time possible of shortest distance possible. It is done by two popular algorithms:
+    </p>
+    <ul>
+        <li>Dijkstra's algorithm: use for non negative edge weights</li>
+        <li>Bellman-Ford algorithm: used for positive and negative edges but has worse timecomplexity then dijkstra</li>
+    </ul>
+    <p>
+        <strong>Weighted graphs</strong>: is graph where each edge is assigned a numerical value. The edge from a node to itself is
+        of weight 0. We generally store the weight is takes to get to a node in the node itself. Therefore initially weight of source = 0 and 
+        weight of all other nodes = infinity and then we traverse the graph and try to get weights of nodes as less as possible.
+    </p>
+    <p>
+        Mostly we maintain two vectors to solve this kind of problems:
+    </p>
+    <ul>
+        <li>d[v]: value inside nodes representing current distance from source.</li>
+        <li>pi[v]: value of parent node on current best path from source to that node. pi[source] = nil</li>
+    </ul>
+    <p>
+        When negative weights come into the picture, we have to consider negative cycles:
+    </p>
+    <img src="./pictures/graph9.png" height="300px">
+    <p>
+        the above example has the potential to cause an infinite loop in your code and traversing that cycle cause a net reduction 
+        in node wieght every single time therefore it will keep on decreasing. Bellman ford algorithm has to detect cycles too therefore
+        it has more complexity then dijkstra.
+    </p>
+</body>
+</html>

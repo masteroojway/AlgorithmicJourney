@@ -20,7 +20,60 @@
     <img src="./pictures/graph8.png" height="350px">
     <p>In the example above, we remove the edge between C and A, as its removal does not disconnect the graph—meaning all components remain connected.
         To find a Minimum Spanning Tree (MST), we typically use Kruskal's Algorithm or Prim's Algorithm.</p>
+    <h2>Kruskal's Algorithm</h2>
+    <p>
+        Kruskal's MST algorithm is based on DSU, therefore DSU is a prerequisite for this learning this algorithm (graph - 4).
+        The algorithm consists of three main steps:
+        <ol>
+            <li>Sort edges based on edge weight.</li>
+            <li>Check if both components are connect or not. We do this by comparing DSU elements</li>
+            <li>If they are not then connect them. After uniting them, do union operation on the two sets.</li>
+        </ol>
+    </p>
     <h2>Prim's Algorithm</h2>
-    <p></p>
+    <p>
+        Prim's Algorithm is a greedy algorithm that finds the Minimum Spanning Tree (MST) of a connected, weighted graph.
+        It starts from an arbitrary node and grows the MST by always choosing the edge with the smallest weight that connects a visited node to an unvisited node.
+    </p>
+
+    <h3>Steps:</h3>
+    <ol>
+        <li>
+            Initialize a <code>priority_queue</code> (min-heap) to store edges in the form: 
+            <code>(weight, to_node, from_node)</code>.
+        </li>
+        <li>
+            Push the starting edge: <code>(0, 0, -1)</code> into the priority queue.
+            <ul>
+                <li><code>0</code> is the weight (no cost to start)</li>
+                <li><code>0</code> is the starting node</li>
+                <li><code>-1</code> indicates no parent (root of the MST)</li>
+            </ul>
+        </li>
+        <li>
+            While the priority queue is not empty:
+            <ul>
+                <li>Pop the edge with the smallest weight.</li>
+                <li>If the destination node has already been visited, skip it.</li>
+                <li>Otherwise:
+                    <ul>
+                        <li>Mark the node as visited.</li>
+                        <li>Add the edge to the MST.</li>
+                        <li>Add the weight to the total MST cost.</li>
+                        <li>Push all unvisited neighbors of the current node into the priority queue.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Concepts related to MST in programming contests</h2>
+    <h3>Maximum spanning tree</h3>
+    <p>
+        In Krushal's algorithm instead of sorting edges in ascending order, we sort in descinding order instead.
+        In prim's algorithm instead of maintaining priority queue of ascending order, we maintain priority queue of descending order instead.
+    </p>
+    
+    <button><a href="./graph7.html">Next Lesson</a></button>
 </body>
 </html>

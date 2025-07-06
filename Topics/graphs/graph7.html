@@ -11,6 +11,8 @@
     <ul>
         <li>Bridges</li>
         <li>Articulations Points</li>
+        <li>Strongly connected graph components</li>
+        <li>Kosaraju's Algorithm</li>
     </ul>
     <h2>Bridges</h2>
     <!--TODO: add a picture-->
@@ -20,12 +22,34 @@
         <ul>
             <li>dfs_num[n]: stores the iteration count, when the vertex u is visited for the first time.</li>
             <li>dfs_low[n]: is initially equal to dfs_num, stores the least value of node that can be reached using a 
-                "back edge".
+                "back edge". In other words, it consists of the lowest value of iteration count of all adjacent nodes,
+                barring the parent.
             </li>
         </ul>
+        When we do dfs, if neighbor is visited already take minimum of dfs_low[node] with dfs_num[neighbor]
+        because you cannot reach beyond neighbor through neighbor if it is already visited.
+        If at the end of this traversal, we have dfs_[low] of neighbor lower than dfs_num of 
+        node than that edge is considered an edge, as it was established that it could not return to
+        parent via a second path.
     </p>
     <h2>Articulation points</h2>
     <!--TODO: add a picture-->
-    <p>Atriculation point is a point on whose removal, the graph breaks into multiple components.</p>
+    <p>Atriculation point is a point on whose removal, the graph breaks into multiple components.
+        Concepts used to find articulation point involve similar concepts to bridges. We use the same 
+        2 vectors as in bridges, except we declare a node articulation point if the min node,
+        its neighbors can reach is that node itself (dfs_num[neighbor] == node).
+        Therefore new condition for articulation point becomes dfs_low[neighbor] >= node.
+        One more condition that comes into play is if parent is connected to multiple children components, 
+        then also it is an articulation point.
+    </p>
+    <h2>Strongly connected components</h2>
+    <p>
+        a Strongly connected component in a directed graph is a subset of vertices where every vertex in 
+        given subset is reachable from any other vertex in the given subset.
+    </p>
+    <p>To get all strongly connected componets of a graph we use Kosaraju's algorithm.
+        
+    </p>
+    <button><a href="./graph8.html">Next lesson</a></button>
 </body>
 </html>
