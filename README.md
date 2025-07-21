@@ -57,5 +57,6 @@ Be kind, respectful, and helpful. Everyone is here to **learn and improve**, no 
 Thank you for being part of **Algorithmic Journey**!  
 Your contribution can help me and many others **learn, grow, and hopefully reach ICPC goals** — and have fun along the way.
 
-Happy coding! 🚀  
+You can check out the live website here 👉 [Algorithmic Journey Website](https://masteroojway.github.io/AlgorithmicJourney/)
 
+Happy coding! 🚀
