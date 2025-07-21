@@ -7,6 +7,58 @@
     color: #f0f0f0;
     font-family: Arial, Helvetica, sans-serif;
 }
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@500&display=swap');
+
+/* Logo Container Styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    padding: 20px 30px;
+    background-color: #22252A;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Logo Styling */
+.logo {
+    width: 90px;
+    height: auto;
+    filter: drop-shadow(0 0 4px rgba(77, 184, 255, 0.25));
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Title Styling */
+.algo-title {
+    font-family: 'Fira Mono', monospace;
+    font-weight: 500;
+    font-size: 3.2rem;
+    background: linear-gradient(90deg, #7fbfff, #3997cc, #7fbfff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 150% 150%;
+    animation: subtle-gradient-shift 10s ease infinite;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+/* Subtle Gradient Animation */
+@keyframes subtle-gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
 body {
     max-width: 900px;
@@ -17,7 +69,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
 }
-
 
 /* Intro Page */
 .intropage {
