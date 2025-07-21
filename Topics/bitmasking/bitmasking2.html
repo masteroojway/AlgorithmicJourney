@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <h1>Bitmasking - 2</h1>
@@ -32,13 +33,11 @@
                 y = 3  →  0011
                 Hamming distance = 2 (1, 2 index);
             </p>
-            <pre>
-                <code>
-                    int hammingDistance(int x, int y) {
-                        return __builtin_popcount(x ^ y); // XOR + count set bits
-                    }                    
-                </code>
-            </pre>
+    <pre><code>
+        int hammingDistance(int x, int y) {
+            return __builtin_popcount(x ^ y); // XOR + count set bits
+        }                    
+    </code></pre>
             <p><a href="https://leetcode.com/problems/minimum-bit-flips-to-convert-number/description/" target="_blank">This problem</a> utlizes hamming 
             distance concepts.</p>
         </li>
@@ -52,23 +51,23 @@
                 For example, if <code>nums = [1, 2, 3]</code> and <code>i = 5</code> (binary <code>101</code>), we include <code>nums[0]</code> and <code>nums[2]</code>, 
                 resulting in the subset <code>[1, 3]</code>. This method efficiently generates all subsets using bitmasking. Sample code:
             </p>
-            <pre>
-                <code>
-                    for (int i = 0; i &lt; (1 &lt;&lt; nums.size()); ++i) {
-                        vector&lt;int&gt; subset;
-                        for (int j = 0; j &lt; nums.size(); ++j) {
-                            if ((i &gt;&gt; j) &amp; 1) {
-                                subset.push_back(nums[j]);
-                            }
-                        }
-                        ans.push_back(subset);
-                    }
-                </code>
-            </pre>
-            <p><a href="https://leetcode.com/problems/subsets/" target="_blank">This problem</a> ultilises the property above.</p>
-                
-                
+    <pre><code>
+    for (int i = 0; i &lt; (1 &lt;&lt; nums.size()); ++i) {
+        vector&lt;int&gt; subset;
+        for (int j = 0; j &lt; nums.size(); ++j) {
+            if ((i &gt;&gt; j) &amp; 1) {
+                subset.push_back(nums[j]);
+            }
+        }
+        ans.push_back(subset);
+    }
+    </code></pre>            
         </li>
     </ul>
+    <section id="assgn">
+        <ul>
+            <li><a href="https://leetcode.com/problems/subsets/" target="_blank">This problem</a> ultilises the property above.</li>
+        </ul>
+    </section>
 </body>
 </html>

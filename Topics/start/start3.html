@@ -25,16 +25,13 @@
             <p>comp: When you need to sort based on certain properties, we use comparative functions
                 with two arguements a and b. It returns true if a is supposed to be before b in a vector. example: (Comparator to sort with respect to absolute value)
             </p>
-            <pre>
-                <code>
-                    bool cmp(int a, int b)
-                    {
-                        return abs(a) >= abs(b);
-                    }
-        
-                    sort(v.begin(), v.end(), cmp);
-                </code>
-            </pre>
+    <pre><code>
+        bool cmp(int a, int b)
+        {
+            return abs(a) >= abs(b);
+        }
+        sort(v.begin(), v.end(), cmp);
+    </code></pre>
         </li>
     </ul>
     <h3>C++ STL for priority queue</h3>
