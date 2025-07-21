@@ -10,6 +10,7 @@
     <h2>Covered in this section:</h2>
     <ul>
         <li>Minimum Spanning Tree</li>
+        <li>Minimum spanning forest</li>
     </ul>
     <h2>Minimum Spanning Tree</h2>
     <p>
@@ -73,7 +74,10 @@
         In Krushal's algorithm instead of sorting edges in ascending order, we sort in descinding order instead.
         In prim's algorithm instead of maintaining priority queue of ascending order, we maintain priority queue of descending order instead.
     </p>
-    
+    <h2>Minimum Spanning forest</h2>
+    <p>For a disconnected graph (graph with multiple isolated parts), you can't have a single spanning tree. 
+        So, you create a spanning tree for each connected component, and together, these trees form a forest (a collection of trees).
+    </p>
     <button><a href="./graph7.html">Next Lesson</a></button>
 </body>
 </html>

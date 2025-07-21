@@ -55,15 +55,28 @@
         in rank vector, and ensure that rank[parent of i] &lt;= rank[parent of j] and merge i into j.
     </p>
     <pre><code>
+        //union by rank, initialize rank to 0.
         void unionset(int i, int j){
             if(findset(i) == findset(j)) return;
             int x = findset(i), y = findset(j);
-            if(x > y)
+            if(rank[x] > rank[y])
             {
                 swap(x,y);
             }
             p[x] = y;
             if(rank[x] == rank[y]) rank[y]++;
+        }
+
+        //union by size, initialize size to one
+        void unionset(int i, int j){
+            int x = findset(i), y = findset(j);
+            if(x == y) return;
+            if(size[x]> size[y])
+            {
+                swap(x,y);
+            }
+            p[x] = y;
+            size[y] += size[x];
         }
     </code></pre>
     <button><a href="graph5.html">Next Lesson</a></button>

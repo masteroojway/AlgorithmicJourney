@@ -44,5 +44,42 @@
         in node wieght every single time therefore it will keep on decreasing. Bellman ford algorithm has to detect cycles too therefore
         it has more complexity then dijkstra.
     </p>
+    <p>
+        Edge relaxation: relaxing an edge means trying to improve the shortest distance to en edge. <br />
+        if <strong> d[v] > d[u] + w(u,v)</strong> then update d[v] and update parent in shortest pi[v].
+        Repeat this until all d[v] &lt; = d[u] + w(u,v). <br/>
+        This is a general bruteforce algorithm that will work for graphs without negative cycles.
+    </p>
+    <p>
+        If you see a directed acyclic graph (DAG) and you know it is a SSSP problem, then one pass over vertices from left to right
+        applying edge relaxation will solve your SSSP problem.
+    </p>
+    <h2>Dijkstra's algorithm</h2>
+    <p>
+        we have two sets in this alogithm <br />
+        <ul>
+            <li>Q: contains elements that we dont know the shortest path to. initialized to all vertices</li>
+            <li>S: contains elements that we know the shortest path to. initialized to NULL</li>
+        </ul>
+        dijkstra source code:
+    </p>
+    <pre><code>
+        initialize all vertices to infinity except source. Initialize source to zero. and put all of these vertices in q;
+        while(!q.empty())
+        {
+            ll u = EXTRACT-MIN(q);
+            delete u from q;
+            s.push_back(u);
+            for(auto i: adj[u])
+            {
+                relax(u,i);
+            }
+        }
+    </code></pre>
+    <h2>Bellman-Ford Algorithm</h2>
+    <p>
+        this is a generic shortest path algorithm which works for negative edges too and detects negative cycles. If negative cycles are
+        present in the graph it aborts the process.
+    </p>
 </body>
 </html>
