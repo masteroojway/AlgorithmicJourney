@@ -58,5 +58,4 @@ Thank you for being part of **Algorithmic Journey**!
 Your contribution can help me and many others **learn, grow, and hopefully reach ICPC goals** — and have fun along the way.
 
 Happy coding! 🚀  
-— *Ujjwal Jain*
 
