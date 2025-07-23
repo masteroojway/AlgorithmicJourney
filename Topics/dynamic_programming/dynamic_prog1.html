@@ -52,30 +52,112 @@
   }
 
 </code></pre>
-      <p>The best way to do DP is understanding the intuition behind it via multiple examples like :</p>
-      <section>
-        <h3>
-          <a href="https://cses.fi/problemset/task/1633" target="_blank">Dice Problem (CSES)</a>
-        </h3>
-        <p>
-          Given a target sum <code>n</code>, you need to compute the total number of distinct sequences of dice rolls (each roll giving 1 to 6) that sum up to exactly <code>n</code>.
-        </p>
-        <p>
-          This is a classic Dynamic Programming problem where the recurrence relation is:
-        </p>
-        <pre><code>
-        f(n) = f(n-1) + f(n-2) + f(n-3) + f(n-4) + f(n-5) + f(n-6)
-        </code></pre>
-        <p>
-          With the base case:
-          <br>
-          <code>f(0) = 1</code> — there's one way to make a sum of 0 (by doing nothing).
-        </p>
-        <p>
-          For all negative values of <code>n</code>, we return 0, since it's not possible to reach negative sums with positive dice rolls.
-        </p>
-      </section>
+      <h2>Tabulation (Bottom-Up DP)</h2>
+      <p>
+        Tabulation is exactly the opposite of Top-Down DP. You start with the base case and build up to your answer. Here
+        is an example for calculating Fibonacci numbers using tabulation.
+      </p>
+
+<pre><code>
+  // Fibonacci using Tabulation (Bottom-Up DP)
+  int fibonacci(int n) {
+      if (n == 0) return 0;
+      vector&lt;int&gt; dp(n + 1);
+      dp[0] = 0;
+      dp[1] = 1;
       
-      <a href="./dynamic_prog2.html" class="nextbtn">Next lesson</a>
+      for (int i = 2; i &lt;= n; ++i) {
+          dp[i] = dp[i - 1] + dp[i - 2];
+      }
+      
+      return dp[n];
+  }
+
+  int main() {
+      int n = 10;
+      cout &lt;&lt; "Fibonacci(" &lt;&lt; n &lt;&lt; ") = " &lt;&lt; fibonacci(n) &lt;&lt; endl;
+      return 0;
+  }
+
+</code></pre>
+      <h3>Tabulation vs Memoization</h3>
+<table border="1" cellspacing="0" cellpadding="10">
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Tabulation (Bottom-Up)</th>
+      <th>Memoization (Top-Down)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Approach</td>
+      <td>Iterative (Bottom-Up)</td>
+      <td>Recursive (Top-Down)</td>
+    </tr>
+    <tr>
+      <td>Function Call Overhead</td>
+      <td>No function calls — faster</td>
+      <td>Has recursive calls — slower due to overhead</td>
+    </tr>
+    <tr>
+      <td>Risk of Stack Overflow</td>
+      <td>None — uses loops</td>
+      <td>Possible for large inputs due to recursion depth</td>
+    </tr>
+    <tr>
+      <td>Space Optimization</td>
+      <td>Easy to optimize (e.g., O(1) space in Fibonacci)</td>
+      <td>Harder to optimize — call stack takes extra space</td>
+    </tr>
+    <tr>
+      <td>Execution Order</td>
+      <td>Subproblems solved in fixed order</td>
+      <td>Subproblems solved on-demand as needed</td>
+    </tr>
+    <tr>
+      <td>Ease of Implementation</td>
+      <td>Sometimes more verbose</td>
+      <td>Often shorter and more intuitive</td>
+    </tr>
+    <tr>
+      <td>Cache Locality</td>
+      <td>Better (data accessed in sequence)</td>
+      <td>Poorer (random access via recursion)</td>
+    </tr>
+  </tbody>
+</table>
+
+  <p>
+    Despite having similar theoretical time and space complexities, tabulation is often preferred—and sometimes even necessary—over memoization due to practical constraints. 
+    Memoization can introduce overhead from recursive calls, redundant state evaluations, or deep recursion stacks. 
+    For instance, on platforms like CSES, a memoized solution may fail to get accepted due to time limits, while an equivalent tabulated version with the same complexity passes successfully because it avoids recomputation and performs better in practice.
+  </p>
+
+  <p>The best way to do DP is understanding the intuition behind it via multiple examples like :</p>
+  <section>
+    <h3>
+      <a href="https://cses.fi/problemset/task/1633" target="_blank">Dice Problem (CSES)</a>
+    </h3>
+    <p>
+      Given a target sum <code>n</code>, you need to compute the total number of distinct sequences of dice rolls (each roll giving 1 to 6) that sum up to exactly <code>n</code>.
+    </p>
+    <p>
+      This is a classic Dynamic Programming problem where the recurrence relation is:
+    </p>
+    <pre><code>
+    f(n) = f(n-1) + f(n-2) + f(n-3) + f(n-4) + f(n-5) + f(n-6)
+    </code></pre>
+    <p>
+      With the base case:
+      <br>
+      <code>f(0) = 1</code> — there's one way to make a sum of 0 (by doing nothing).
+    </p>
+    <p>
+      For all negative values of <code>n</code>, we return 0, since it's not possible to reach negative sums with positive dice rolls.
+    </p>
+  </section>
+  
+  <a href="./dynamic_prog2.html" class="nextbtn">Next lesson</a>
 </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <h1>Dynamic Programming - 3</h1>
+    <h2>Covered in this section: </h2>
+    <ul>
+        <li>Problems on 2-D DP</li>
+    </ul>
+    <h3><a href="https://leetcode.com/problems/maximal-square/description/" target="_blank">Maximal Square (Leetcode)</a></h3>
+    <img src="./pictures/dp1.png">
+    <p>
+        This problem asks us to find the largest square containing only 1s in a binary matrix.
+        A brute-force approach would involve checking every possible square, leading to high time complexity.
+        Instead, we use dynamic programming where <code>dp[i][j]</code> represents the size of the largest square 
+        ending at cell <code>(i, j)</code>. The image above explains the intuition of the solution.
+        Here is the pseudo-code that solves this problem.
+        <pre><code>
+    for(int i = 0; i &lt; n; i++) {
+        for(int j = 0; j &lt; m; j++) {
+            if(matrix[i][j] == '1') {
+                if(i == 0 || j == 0) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]}) + 1;
+                }
+                ans = max(ans, dp[i][j]);
+            } else {
+                dp[i][j] = 0;
+            }
+        }
+    }
+        </code></pre>
+        This ensures that a square can only be formed if all three adjacent directions also form squares.
+        The maximum value in the <code>dp</code> table gives the side length of the largest square, and squaring it gives the area.
+    </p>
+
+</body>
+</html>

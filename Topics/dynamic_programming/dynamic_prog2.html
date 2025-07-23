@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <h1>Dynamic Programming - 2</h1>
     <h2>Covered in this section: </h2>
     <ul>
         <li>Dynamic Programming on subsequences</li>
-        <li>Longest increasing sibsequences</li>
     </ul>
     <h2>DP on subsequences</h2>
     <h3><a href="https://leetcode.com/problems/target-sum/description/" target="_blank">Target Sum (LeetCode)</a></h3>
     <h2>Longest increasing subsequences</h2>
     <p>
-        Tabulation approach: (O(n^2) approach) => Our fundamental state dp[i] becomes: longest increasing subsequence ending at ith
+        Tabulation approach: <code>(O(n^2) approach)</code> => Our fundamental state dp[i] becomes: longest increasing subsequence ending at ith
         index. We initialize dp[0] = 1, then for i, we look for j from 0 to i-1 such that num[j] is less than num[i] and update 
         dp[i] = max(dp[i], num[j]+1).
-
+        <br />
         Using binary search: 
     </p>
+    <a href="./dynamic_prog3.html" class="nextbtn">Next Lesson</a>
 </body>
 </html>
