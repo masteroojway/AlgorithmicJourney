@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <h1>Intro to competitive programming - 3</h1>
+    <ul>
+        <li>Interactive Problem</li>
+    </ul>
+    <h2>Interactive Problem</h2>
+    <p>
+        An interactive problem in competitive programming is a problem where your program interacts with a judge 
+        <strong>during execution</strong>. Your code recieves inputs, processes them and sends output step by step.
+        We communicate with online judge using standard cout, and cin, but we need to flush the input after each cout/cin.
+    </p>
+    <p>
+        When you print nd output, it first goes to output buffer (the system doesnt immediately send it to he judge). If you dont flush,
+        the judge wont recieve your output on time, and you programme will hang waiting for a reply. Inorder to avoid such situation you have 
+        to use special flush operation each time you output some data.
+    </p>
+    <p>
+    One simple example of this kind of problem is: there is some hidden number between 1 and 100,000. You make queries to the system,
+    and the system returns '>', '&lt;', or '=' in response. Below is an example of how to implement a binary search to guess the number.
+</p>
+
+<pre><code class="language-cpp">
+    #include &lt;iostream&gt;
+    using namespace std;
+
+    int main() {
+        int low = 1, high = 100000;
+
+        while (low &lt;= high) {
+            int mid = (low + high) / 2;
+            cout &lt;&lt; mid &lt;&lt; endl;
+            cout.flush();  // Important to flush after each output
+
+            string response;
+            cin &gt;&gt; response;
+
+            if (response == "=") {
+                cout &lt;&lt; "Found the number: " &lt;&lt; mid &lt;&lt; endl;
+                break;
+            } else if (response == "&gt;") {
+                low = mid + 1;
+            } else if (response == "&lt;") {
+                high = mid - 1;
+            }
+        }
+
+        return 0;
+    }
+</code></pre>
+<p>
+    To test interactive problem in your local machine, you will have to act as online judge and give input yourself.
+</p>
+</body>
+</html>

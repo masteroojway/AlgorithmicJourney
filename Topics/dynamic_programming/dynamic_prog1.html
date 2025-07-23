@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <section>
@@ -13,21 +14,44 @@
           <li>Fundamentals and core concepts of Dynamic Programming</li>
         </ul>
       </section>
-      <section>
-        <h2>Introduction</h2>
-        <p>
-          Dynamic Programming (DP) is a powerful problem-solving technique used in computer science to solve complex problems
-          by breaking them down into simpler, overlapping subproblems. It is primarily an optimization over plain recursion,
-          where previously computed results are reused to avoid redundant computations.
-        </p>
-        <p>
-          Dynamic Programming is commonly used for:
-          <ol>
-            <li>Finding the optimal solution to a problem (e.g., minimum/maximum value, longest path, etc.)</li>
-            <li>Counting the total number of possible solutions (e.g., number of ways to reach a target)</li>
-          </ol>
-        </p>
-      </section>
+      <h2>Introduction</h2>
+      <p>
+        Dynamic Programming (DP) is a powerful problem-solving technique used in computer science to solve complex problems
+        by breaking them down into simpler, overlapping subproblems. It is primarily an optimization over plain recursion,
+        where previously computed results are reused to avoid redundant and repeated computations.
+      </p>
+      <p>
+        Dynamic Programming is commonly used for:
+        <ul>
+          <li>Finding the optimal solution to a problem (e.g., minimum/maximum value, longest path, etc.)</li>
+          <li>Counting the total number of possible solutions (e.g., number of ways to reach a target)</li>
+        </ul>
+      </p>
+      <h2>Memoization (Top-Down DP)</h2>
+      <p>
+        Memoization in a technique in dynamic programming where you solve a subproblem only once and then save the result in a look-up table.
+        Typically we try to save states in a vector or an array because look-up time is <code>O(1)</code>. However you can use <code>map</code> or
+        <code>unordered_map</code> to store states too.
+      </p>
+       <pre><code>
+  // DP solution of Fibonacci using vector:
+  vector&lt;int&gt; dp;
+
+  int fib(int n) {
+      if (dp[n] != -1) return dp[n];
+      if (n == 0) return dp[n] = 0;
+      if (n == 1) return dp[n] = 1;
+      return dp[n] = fib(n - 1) + fib(n - 2);
+  }
+
+  int main() {
+      int n = 10;
+      dp.assign(n + 1, -1);
+      int result = fib(n);
+      return 0;
+  }
+
+</code></pre>
       <p>The best way to do DP is understanding the intuition behind it via multiple examples like :</p>
       <section>
         <h3>
@@ -39,7 +63,9 @@
         <p>
           This is a classic Dynamic Programming problem where the recurrence relation is:
         </p>
-        <pre><code>f(n) = f(n-1) + f(n-2) + f(n-3) + f(n-4) + f(n-5) + f(n-6)</code></pre>
+        <pre><code>
+        f(n) = f(n-1) + f(n-2) + f(n-3) + f(n-4) + f(n-5) + f(n-6)
+        </code></pre>
         <p>
           With the base case:
           <br>
@@ -50,6 +76,6 @@
         </p>
       </section>
       
-      <button><a href="./dynamic_prog2.html">Next lesson</a></button>
+      <a href="./dynamic_prog2.html" class="nextbtn">Next lesson</a>
 </body>
 </html>
