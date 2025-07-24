@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <h1>Graphs - 1</h1>
@@ -41,68 +42,58 @@
                 For a directed graph, an edge from node <code>u</code> to node <code>v</code> is represented by adding <code>v</code> to the adjacency list of <code>u</code>.
                 Here's an example:
             </p>
-            <pre>
-            <code>
-                    vector&lt;int&gt; adj[N]; // N is the number of nodes
+    <pre><code>
+    vector&lt;int&gt; adj[N]; // N is the number of nodes
 
-                    adj[1].push_back(2); // Edge from 1 to 2
-                    adj[2].push_back(3); // Edge from 2 to 3
-                    adj[2].push_back(4); // Edge from 2 to 4
-            </code>
-            </pre>
+    adj[1].push_back(2); // Edge from 1 to 2
+    adj[2].push_back(3); // Edge from 2 to 3
+    adj[2].push_back(4); // Edge from 2 to 4
+    </code></pre>
             <p>
                 For undirected graph => adjacency list will be in both directions [i] = {j} and [j] = {i}. For weighted edges, we can use the following:
             </p>
-            <pre>
-                <code>
-                    vector&lt;pair&lt;int, int&gt;&gt; adj[N]; // N is the number of nodes
-    
-                    adj[1].push_back({2,5}); // Edge from 1 to 2 of weight 5
-                    adj[2].push_back({3,6}); // Edge from 2 to 3 of weight 6
-                    adj[2].push_back({4,1}); // Edge from 2 to 4 of weight 1
-                </code>
-            </pre>
+    <pre><code>
+    vector&lt;pair&lt;int, int&gt;&gt; adj[N]; // N is the number of nodes
+
+    adj[1].push_back({2,5}); // Edge from 1 to 2 of weight 5
+    adj[2].push_back({3,6}); // Edge from 2 to 3 of weight 6
+    adj[2].push_back({4,1}); // Edge from 2 to 4 of weight 1
+    </code></pre>
         </li>
         <li>
             <h3>Adjacency Matrix</h3>
             <p>
                 stores which nodes have edges between them in form of a matrix.
             </p>
-            <pre>
-                <code>
-                    int adj[N][N];
-                    adj[2][3] = 5; //Edge from 2 to 3 of weight 5
-                    adj[6][2] = 3; //Edge from 6 to 2 of weight 3
-                </code>
-            </pre>
+    <pre><code>
+    int adj[N][N];
+    adj[2][3] = 5; //Edge from 2 to 3 of weight 5
+    adj[6][2] = 3; //Edge from 6 to 2 of weight 3
+    </code></pre>
         </li>
         <li>
             <h3>Edge list</h3>
             <p>
                 Stores edges in the form of pair of numbers representing nodes. Example:
             </p>
-            <pre>
-                <code>
-                    vector&lt;pair&lt;int, int&gt;&gt; edges;
-                    edges.push_back({2,3});// edge between 2 and 3 nodes
-                    edges.push_back({3,4});// edge between 3 and 4 nodes
-                    edges.push_back({4,1});// edge between 4 and 1 nodes
-                </code>
-            </pre>
+    <pre><code>
+    vector&lt;pair&lt;int, int&gt;&gt; edges;
+    edges.push_back({2,3}); // edge between 2 and 3 nodes
+    edges.push_back({3,4}); // edge between 3 and 4 nodes
+    edges.push_back({4,1}); // edge between 4 and 1 nodes
+    </code></pre>
             <p>
                 If the nodes are weighted then we can expand pair to tuple and store weight in the last index. Example:
             </p>
-            <pre>
-                <code>
-                    vector&lt;tuple&lt;int, int, int&gt;&gt; edges;
-                </code>
-            </pre>
+    <pre><code>
+    vector&lt;tuple&lt;int, int, int&gt;&gt; edges;
+    </code></pre>
         </li>
     </ul>
     <p>What happens when vertex labels are not labelled from 0 to n-1 or label is not 
         a number all toghether??, Suppose labels are strings, then we can use a map to store the index of each vertex.
         Example: unordered_map&lt;string, vector&lt;string&gt;&gt; adj;
     </p>
-    <button><a href="./graph2.html">Next Lesson</a></button>
+    <a href="./graph2.html" class="nextbtn">Next Lesson</a>
 </body>
 </html>

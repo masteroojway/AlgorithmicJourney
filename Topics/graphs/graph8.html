@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <h1>Graphs - 8</h1>
@@ -64,17 +65,17 @@
         dijkstra source code:
     </p>
     <pre><code>
-        initialize all vertices to infinity except source. Initialize source to zero. and put all of these vertices in q;
-        while(!q.empty())
+    //initialize all vertices to infinity except source. Initialize source to zero. and put all of these vertices in q;
+    while(!q.empty())
+    {
+        ll u = EXTRACT-MIN(q);
+        delete u from q;
+        s.push_back(u);
+        for(auto i: adj[u])
         {
-            ll u = EXTRACT-MIN(q);
-            delete u from q;
-            s.push_back(u);
-            for(auto i: adj[u])
-            {
-                relax(u,i);
-            }
+            relax(u,i);
         }
+    }
     </code></pre>
     <h2>Bellman-Ford Algorithm</h2>
     <p>

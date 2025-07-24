@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <h1>Graphs - 5</h1>
@@ -29,29 +30,27 @@
     <p>
         We generally use vectors to implement Fenwick Trees. Here are the necessary code to update and query the Fenwick Tree:
     </p>
-    <pre>
-        <code>
-            vector<int> fenwickTree(n+1, 0); // n is the size of the array
+    <pre><code>
+    vi fenwickTree(n+1, 0); // n is the size of the array
 
-            // Update function
-            void update(int index, int value) {
-                while (index &lt;= n) {
-                    fenwickTree[index] += value;
-                    index += (index & -index); // LSOne
-                }
-            }
+    // Update function
+    void update(int index, int value) {
+        while (index &lt;= n) {
+            fenwickTree[index] += value;
+            index += (index & -index); // LSOne
+        }
+    }
 
-            // Query function
-            int query(int index) {
-                int sum = 0;
-                while (index > 0) {
-                    sum += fenwickTree[index];
-                    index -= (index & -index); // LSOne
-                }
-                return sum;
-            }
-        </code>
-    </pre>
-    <button><a href="./graph6.html">Next Lesson</a></button>
+    // Query function
+    int query(int index) {
+        int sum = 0;
+        while (index > 0) {
+            sum += fenwickTree[index];
+            index -= (index & -index); // LSOne
+        }
+        return sum;
+    }
+    </code></pre>
+    <a href="./graph6.html" class="nextbtn">Next Lesson</a>
 </body>
 </html>
