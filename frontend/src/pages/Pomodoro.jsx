@@ -57,7 +57,6 @@ const Pomodoro = () => {
   return (
     <div className="min-h-screen w-screen flex flex-col md:flex-row items-center justify-center bg-[#0b0c0f] text-white p-4 md:p-10 gap-10">
       
-      {/* Left: Timer Section */}
       <div className="flex flex-col items-center justify-center w-full md:w-1/2">
         <div className="w-[min(70vw,300px)] h-[min(70vw,300px)] p-4">
           <CircularProgressbar
@@ -71,7 +70,6 @@ const Pomodoro = () => {
           />
         </div>
 
-        {/* Buttons Below Timer */}
         <div className="flex mt-6">
           <img
             src={paused ? `/playbtn.svg` : `/pausebtn.svg`}
@@ -87,8 +85,6 @@ const Pomodoro = () => {
           />
         </div>
       </div>
-
-      {/* Right: Settings Section */}
       <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-white gap-6 bg-white/10 p-8 md:p-10 rounded-xl">
         <h2 className="text-xl md:text-2xl font-bold text-gray-300">Adjust Timer</h2>
 
