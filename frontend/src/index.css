@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+/* Add this: */
+html, body {
+  background-color: #1b1a1a;
+  margin: 0;
+  padding: 0;
+}
