@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import router from "./routes/LoginRoute.js";
 import jwt from "jsonwebtoken";
 import cors from "cors";
-import serverless from "serverless-http";
 
 dotenv.config();
 
@@ -19,16 +18,9 @@ app.use(cors({
 app.use(express.json());
 app.use("/", router);
 
-let isConnected = false;
-
-const handler = async (req, res) => {
-  if (!isConnected) {
-    await connectDB();
-    isConnected = true;
-    console.log("MongoDB connected successfully");
-  }
-
-  return await serverless(app)(req, res);
-};
-
-export default handler ;
+connectDB().then(() => {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+});
