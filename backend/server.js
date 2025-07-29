@@ -10,10 +10,19 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = process.env.FRONTEND_URL?.split(",").map(url => url.trim()) || [];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS Not Allowed: " + origin));
+    }
+  },
   credentials: true,
 }));
+
 
 app.use(express.json());
 app.use("/", router);
