@@ -26,7 +26,7 @@ const Register = () => {
         }
         setotpmode(true);
         try {
-            const response = await axios.post("http://localhost:3000/register", {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/register`, {
                 name: form.name,
                 email: form.email,
                 password: form.password,
@@ -45,7 +45,7 @@ const Register = () => {
         e.preventDefault();
 
         try {
-            await axios.post("http://localhost:3000/verify-otp", {
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/verify-otp`, {
             email: form.email,
             otp,
         });
