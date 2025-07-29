@@ -33,7 +33,7 @@ const DefaultLanding = () => {
 
       {/* Main Content */}
       <main className="z-10 w-full max-w-3xl text-center">
-        <div className="bg-[#18191c]/60 backdrop-blur-lg rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.4)] px-10 py-16 animate-fadeInUp">
+        <div className="bg-[#18191c]/60 backdrop-blur-lg rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.4)] px-6 py-12 animate-fadeInUp">
 
           <h1 className="text-4xl sm:text-6xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-[#7fbfff] via-[#3997cc] to-[#7fbfff] animate-gradient tracking-normal sm:tracking-wide drop-shadow-[0_0_10px_rgba(77,184,255,0.3)] mb-6 pr-2 overflow-visible inline-block">
             Welcome to Algorithmic Journey
