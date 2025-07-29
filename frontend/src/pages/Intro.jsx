@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const DefaultLanding = () => {
   return (
-    <div className="min-h-screen bg-[#0b0c0f] text-white font-sans relative overflow-hidden flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-[#0b0c0f] text-white font-sans relative overflow-y-hidden overflow-x-visible flex items-center justify-center px-6 py-12">
 
       {/* Subtle animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#101114] via-[#0b0b0c] to-[#050506] animate-pulse opacity-80 blur-sm z-0" />
@@ -35,7 +35,7 @@ const DefaultLanding = () => {
       <main className="z-10 w-full max-w-3xl text-center">
         <div className="bg-[#18191c]/60 backdrop-blur-lg rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.4)] px-10 py-16 animate-fadeInUp">
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-[#7fbfff] via-[#3997cc] to-[#7fbfff] animate-gradient tracking-wide drop-shadow-[0_0_10px_rgba(77,184,255,0.3)] mb-6">
+          <h1 className="text-4xl sm:text-6xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-[#7fbfff] via-[#3997cc] to-[#7fbfff] animate-gradient tracking-normal sm:tracking-wide drop-shadow-[0_0_10px_rgba(77,184,255,0.3)] mb-6 pr-2 overflow-visible inline-block">
             Welcome to Algorithmic Journey
           </h1>
 
