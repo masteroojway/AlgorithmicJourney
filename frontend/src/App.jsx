@@ -6,7 +6,7 @@ import Notes from './pages/Notes'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import DefaultLanding from './pages/Intro'
-import Pomodoro from './pages/pomodoro'
+import Pomodoro from './pages/Pomodoro'
 
 function App() {
   return (
