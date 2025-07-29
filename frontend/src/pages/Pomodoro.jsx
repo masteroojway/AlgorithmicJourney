@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 const Pomodoro = () => {
   const [paused, setPaused] = useState(true);
@@ -9,7 +10,13 @@ const Pomodoro = () => {
   const [remaining, setRemaining] = useState(workMin * 60);
   const [mode, setMode] = useState(true); // true = work, false = break
   const intervalRef = useRef(null);
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // or cookie check
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
   const formatTime = (secs) => {
     const m = String(Math.floor(secs / 60)).padStart(2, '0');
     const s = String(secs % 60).padStart(2, '0');

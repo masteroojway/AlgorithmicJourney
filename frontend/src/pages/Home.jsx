@@ -1,6 +1,14 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // or cookie check
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-[#0b0c0f] text-[#f0f0f0] font-sans flex justify-center px-4 relative overflow-hidden">
 
