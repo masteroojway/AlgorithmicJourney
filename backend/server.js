@@ -31,4 +31,4 @@ const handler = async (req, res) => {
   return await serverless(app)(req, res);
 };
 
-export { handler };
+export default handler ;
