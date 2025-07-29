@@ -6,7 +6,6 @@ import router from "./routes/LoginRoute.js";
 import jwt from "jsonwebtoken";
 import cors from "cors"
 
-
 dotenv.config();
 const app = express();
 

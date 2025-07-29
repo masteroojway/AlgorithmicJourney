@@ -22,9 +22,19 @@ const Login = () => {
         alert(res.data.message || "Login failed");
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Login failed")
+        console.error(error);
+
+        if (error.response?.status === 403) {
+            toast.error("Email not verified. Please check your email and verify OTP.");
+        } else if (error.response?.status === 401) {
+            toast.error("Incorrect password.");
+        } else if (error.response?.status === 404) {
+            toast.error("User not found.");
+        } else {
+            toast.error("Login failed. Try again later.");
+        }
     }
+
   };
 
   return (

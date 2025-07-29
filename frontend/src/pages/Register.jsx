@@ -3,45 +3,60 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios"
 import toast from "react-hot-toast"
 const Register = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [otpmode, setotpmode] = useState(false);
+    const [otp, setOtp] = useState("");
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    const handleRegister = async (e) => {
+        e.preventDefault();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+        if (form.password !== form.confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
+        setotpmode(true);
+        try {
+            const response = await axios.post("http://localhost:3000/register", {
+                name: form.name,
+                email: form.email,
+                password: form.password,
+            });
 
-    if (form.password !== form.confirmPassword) {
-        toast.error("Passwords do not match");
-        return;
-    }
+            toast.success(response.data.message);
 
-    try {
-        const response = await axios.post("http://localhost:3000/register", {
-            name: form.name,
+        } catch (error) {
+            const errorMsg = error.response?.data?.message || "Registration failed!";
+            toast.error(errorMsg);
+            console.error(error);
+        }
+
+    };
+  const handleOtpSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await axios.post("http://localhost:3000/verify-otp", {
             email: form.email,
-            password: form.password,
+            otp,
         });
 
-        toast.success(response.data.message);  // now guaranteed to exist
+        toast.success("OTP verified. You can now login.");
         navigate("/login");
-
-    } catch (error) {
-        const errorMsg = error.response?.data?.message || "Registration failed!";
-        toast.error(errorMsg);
+        } catch (error) {
+        toast.error("OTP verification failed");
         console.error(error);
-    }
-
-};
-
+        }
+    };
 
   return (
     <div className="min-h-screen bg-[#0b0c0f] text-[#f0f0f0] font-sans flex items-center justify-center px-4 relative overflow-hidden">
@@ -121,6 +136,30 @@ const Register = () => {
           </span>
         </p>
       </form>
+      {otpmode && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
+          <div className="bg-[#22252A] p-6 rounded-xl shadow-lg w-[90%] max-w-sm">
+            <h3 className="text-xl font-semibold mb-4 text-center">Enter OTP</h3>
+            <form onSubmit={handleOtpSubmit} className="flex flex-col gap-4">
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="6-digit OTP"
+                className="p-3 rounded-lg bg-[#2e2e2e] text-white focus:outline-none focus:ring-2 focus:ring-[#3997cc]"
+                maxLength={6}
+                required
+              />
+              <button
+                type="submit"
+                className="bg-[#3997cc] hover:bg-[#2c7aa8] text-white font-semibold py-2 rounded-lg transition-all duration-200 hover:scale-105"
+              >
+                Verify OTP
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

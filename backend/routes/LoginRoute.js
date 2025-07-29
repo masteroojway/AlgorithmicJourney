@@ -1,5 +1,5 @@
 import express from "express"
-import { getlogin, register } from "../controllers/Controllers.js";
+import { getlogin, register, verifyotp } from "../controllers/Controllers.js";
 import { requireAuth } from "../middleware/middleAuth.js";
 
 const router = express.Router();
@@ -12,4 +12,5 @@ router.get("/home", requireAuth, (req, res) => {
         user: req.user
     });
 })
+router.post("/verify-otp", verifyotp)
 export default router;

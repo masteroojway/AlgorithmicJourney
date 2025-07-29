@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-[#0b0c0f] text-white font-sans relative overflow-hidden px-6 py-12">
+    <div className="min-h-screen bg-[#0b0c0f] text-[#f0f0f0] font-sans flex justify-center px-4 relative overflow-hidden">
 
       {/* Animated Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#101114] via-[#0b0b0c] to-[#050506] animate-pulse opacity-80 blur-sm z-0" />
@@ -14,21 +14,6 @@ const Home = () => {
           alt="Logo"
           className="w-[60px] drop-shadow-[0_0_6px_rgba(77,184,255,0.5)] hover:scale-105 transition-transform"
         />
-
-        <div className="flex gap-4">
-          <Link
-            to="/login"
-            className="px-5 py-2 bg-[#1d1d1d] hover:bg-[#2a2a2a] rounded-xl text-sm font-semibold tracking-wide transition-all hover:scale-105"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="px-5 py-2 bg-[#3997cc] hover:bg-[#2c7aa8] text-white rounded-xl text-sm font-semibold tracking-wide transition-all hover:scale-105"
-          >
-            Sign Up
-          </Link>
-        </div>
       </header>
 
       {/* Content */}
