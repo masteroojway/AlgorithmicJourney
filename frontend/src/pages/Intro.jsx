@@ -1,6 +1,51 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
+/** Base64url → JSON decoder for JWT payload */
+function decodeJwt(token) {
+  try {
+    const base64Url = token?.split(".")[1];
+    if (!base64Url) return null;
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = base64.padEnd(base64.length + (4 - (base64.length % 4)) % 4, "=");
+    const json = atob(padded);
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
+}
+
+/** Nice short display name */
+function getDisplayName(payload) {
+  const name = payload?.name?.trim();
+  if (name) {
+    const first = name.split(/\s+/)[0];
+    return first.length > 18 ? first.slice(0, 15) + "…" : first;
+  }
+  const email = payload?.email || "";
+  return email.split("@")[0] || "User";
+}
+
 const DefaultLanding = () => {
+  const [displayName, setDisplayName] = useState(null);
+
+  // On mount and when token changes in other tabs, update UI
+  useEffect(() => {
+    const read = () => {
+      const token = localStorage.getItem("token");
+      const payload = decodeJwt(token);
+      setDisplayName(payload ? getDisplayName(payload) : null);
+    };
+    read();
+    const onStorage = (e) => {
+      if (e.key === "token") read();
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  const isLoggedIn = useMemo(() => Boolean(displayName), [displayName]);
+
   return (
     <div className="min-h-screen bg-[#0b0c0f] text-white font-sans relative flex flex-col overflow-x-visible overflow-y-auto">
       {/* Subtle animated gradient background */}
@@ -15,19 +60,36 @@ const DefaultLanding = () => {
               alt="Logo"
               className="w-[48px] sm:w-[60px] drop-shadow-[0_0_6px_rgba(77,184,255,0.5)] hover:scale-105 transition-transform"
             />
+
             <div className="flex gap-3 w-full sm:w-auto justify-center sm:justify-end">
-              <Link
-                to="/login"
-                className="w-full sm:w-auto text-center px-4 sm:px-5 py-2 bg-[#1d1d1d] hover:bg-[#2a2a2a] rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all hover:scale-105"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="w-full sm:w-auto text-center px-4 sm:px-5 py-2 bg-[#3997cc] hover:bg-[#2c7aa8] text-white rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all hover:scale-105"
-              >
-                Sign Up
-              </Link>
+              {isLoggedIn ? (
+                // Logged-in view: show a user chip (and keep CTAs out)
+                <Link to="/home"className="flex items-center gap-2 rounded-xl bg-[#1d1d1d] border border-white/10 px-3 py-2 hover:scale-105">
+                  {/* small circle with initials */}
+                  <span className="flex items-center justify-center h-6 w-6 rounded-full bg-[#3997cc] text-black text-xs font-bold">
+                    {displayName?.[0]?.toUpperCase() || "U"}
+                  </span>
+                  <span className="text-xs sm:text-sm font-semibold tracking-wide">
+                    {displayName}
+                  </span>
+                </Link>
+              ) : (
+                // Logged-out view: Login / Sign Up buttons
+                <>
+                  <Link
+                    to="/login"
+                    className="w-full sm:w-auto text-center px-4 sm:px-5 py-2 bg-[#1d1d1d] hover:bg-[#2a2a2a] rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all hover:scale-105"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="w-full sm:w-auto text-center px-4 sm:px-5 py-2 bg-[#3997cc] hover:bg-[#2c7aa8] text-white rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all hover:scale-105"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -98,6 +160,27 @@ const DefaultLanding = () => {
                   className="inline-block text-sm font-semibold px-3 py-1.5 rounded-lg bg-[#1c1c1c] hover:bg-[#2d2d2d] border border-white/10 transition-colors"
                 >
                   Go to Notes →
+                </Link>
+              </div>
+            </article>
+
+            {/* Kanban */}
+            <article className="bg-[#18191c]/60 backdrop-blur-lg rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(0,0,0,0.35)] p-5">
+              <div className="flex items-start justify-between">
+                <h3 className="text-lg font-semibold">Kanban</h3>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[#1c1c1c] border border-white/10">
+                  Plan
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-gray-300">
+                Plan tasks across Pending, In&nbsp;Progress, and Completed with smooth drag &amp; drop.
+              </p>
+              <div className="mt-4">
+                <Link
+                  to="/kanban"
+                  className="inline-block text-sm font-semibold px-3 py-1.5 rounded-lg bg-[#1c1c1c] hover:bg-[#2d2d2d] border border-white/10 transition-colors"
+                >
+                  Open Kanban →
                 </Link>
               </div>
             </article>
