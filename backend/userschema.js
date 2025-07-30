@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     isverified: {
         type: Boolean,
         default: false
+    },
+    cfAcc: {
+        type: String,
+        default: null,
     }
 },{timestamps: true})
 

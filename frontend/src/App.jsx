@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import DefaultLanding from './pages/Intro'
 import Pomodoro from './pages/Pomodoro'
+import Potd from './pages/Potd'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<DefaultLanding />} />
         <Route path='/pomodoro' element={<Pomodoro />} />
+        <Route path='/potd' element={<Potd />} />
       </Routes>
     </Router>
   )
