@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const DefaultLanding = () => {
   return (
-    <div className="min-h-screen bg-[#0b0c0f] text-white font-sans relative overflow-y-hidden overflow-x-visible flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-[#0b0c0f] text-white font-sans relative overflow-y-hidden overflow-x-visible flex items-center justify-center px-6 py-12 flex-col">
 
       {/* Subtle animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#101114] via-[#0b0b0c] to-[#050506] animate-pulse opacity-80 blur-sm z-0" />
@@ -60,6 +60,19 @@ const DefaultLanding = () => {
           </div>
         </div>
       </main>
+      <footer className="relative z-10 mt-8 border-t border-white/10">
+        <div className="mx-auto w-full max-w-6xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
+          <p>© {new Date().getFullYear()} Algorithmic Journey</p>
+          <a
+            href="https://github.com/masteroojway/AlgorithmicJourney"
+            className="hover:text-white transition-colors underline underline-offset-4"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Contribute on GitHub
+          </a>
+        </div>
+      </footer>
     </div>
   );
 };
