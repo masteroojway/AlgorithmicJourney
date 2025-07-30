@@ -91,7 +91,7 @@ const DefaultLanding = () => {
                 </span>
               </div>
               <p className="mt-2 text-sm text-gray-300">
-                Clean, searchable notes for concepts, tricks, and code snippets.
+                Clean, notes for concepts, tricks, code snippets, etc.
               </p>
               <div className="mt-4">
                 <Link
