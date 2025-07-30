@@ -4,12 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   DndContext,
   PointerSensor,
+  TouchSensor,          // ✅ add TouchSensor
   KeyboardSensor,
   useSensor,
   useSensors,
   DragOverlay,
   closestCenter,
-  useDroppable,           // ⬅️ make columns droppable
+  useDroppable,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -17,7 +18,6 @@ import {
   verticalListSortingStrategy,
   arrayMove,
 } from "@dnd-kit/sortable";
-// Removed restrictToVerticalAxis so cross-column drag works
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -33,6 +33,7 @@ const toText = (list) => list.map((x) => x.text ?? x);
 const Skeleton = () => <div className="h-9 w-full rounded-lg bg-white/5 animate-pulse border border-white/10" />;
 const Empty = ({ label }) => <div className="rounded-xl border border-dashed border-white/10 bg-black/10 p-4 text-center text-sm text-gray-400">No {label} yet.</div>;
 
+/** Draggable card */
 const Card = ({ id, text, onDelete }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
@@ -49,7 +50,8 @@ const Card = ({ id, text, onDelete }) => {
       {...attributes}
       {...listeners}
       className={cx(
-        "group relative bg-[#0f1012]/70 border border-white/10 rounded-xl px-3 py-2",
+        // ✅ touch-none helps mobile drags (prevents browser from hijacking the gesture)
+        "group relative touch-none bg-[#0f1012]/70 border border-white/10 rounded-xl px-3 py-2",
         "shadow-[0_0_12px_rgba(0,0,0,0.25)] hover:shadow-[0_0_18px_rgba(77,184,255,0.25)]",
         "transition-all hover:scale-[1.01] hover:border-white/20 select-none cursor-grab active:cursor-grabbing",
         isDragging && "opacity-80 ring-1 ring-[#7fbfff]/40"
@@ -83,9 +85,9 @@ const OverlayCard = ({ text }) => (
   </div>
 );
 
-// Column is now a droppable container (so you can drop into empty space)
+/** Column droppable area */
 const Column = ({ title, badge, items, loading, id, onQuickAdd, children }) => {
-  const { setNodeRef, isOver } = useDroppable({ id }); // ⬅️
+  const { setNodeRef, isOver } = useDroppable({ id });
   return (
     <article className="bg-[#18191c]/60 backdrop-blur-lg rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(0,0,0,0.35)] p-4 sm:p-5">
       <div className="flex items-start justify-between">
@@ -99,7 +101,8 @@ const Column = ({ title, badge, items, loading, id, onQuickAdd, children }) => {
       <div
         ref={setNodeRef}
         className={cx(
-          "mt-3 space-y-2.5 min-h-[48px] transition-colors",
+          // ✅ touch-none here improves dropping into empty/large spaces on mobile
+          "mt-3 space-y-2.5 min-h-[48px] transition-colors touch-none",
           isOver && "bg-white/5 rounded-xl"
         )}
       >
@@ -122,10 +125,13 @@ export default function Kanban() {
   const [adding, setAdding] = useState(false);
   const addRef = useRef(null);
 
+  // ✅ Sensors: TouchSensor with a small delay to distinguish scroll vs drag
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor,   { activationConstraint: { delay: 150, tolerance: 5 } }),
     useSensor(KeyboardSensor)
   );
+
   const all = useMemo(() => [...board.pending, ...board.progress, ...board.completed], [board]);
   const activeItem = useMemo(() => all.find((x) => x.id === activeId) || null, [all, activeId]);
 
@@ -220,13 +226,9 @@ export default function Kanban() {
     if (!over) return;
 
     const from = findCol(active.id);
-    // If we dropped over a column, `over.id` will be the column id; otherwise it's an item id.
-    const to =
-      Object.values(COLS).includes(over.id) ? over.id : (findCol(over.id) || from);
-
+    const to = Object.values(COLS).includes(over.id) ? over.id : (findCol(over.id) || from);
     if (!from || !to) return;
 
-    // same column reorder
     if (from === to && over.id && !Object.values(COLS).includes(over.id)) {
       const list = board[from];
       const oi = list.findIndex((x) => x.id === active.id);
@@ -239,13 +241,12 @@ export default function Kanban() {
       return;
     }
 
-    // cross-column move (append if dropped on column itself)
     const fromList = [...board[from]];
     const toList = [...board[to]];
     const fromIdx = fromList.findIndex((x) => x.id === active.id);
     const [moved] = fromList.splice(fromIdx, 1);
 
-    let insertAt = toList.length; // default append
+    let insertAt = toList.length; // append if dropped on column body
     if (!Object.values(COLS).includes(over.id)) {
       const overIdx = toList.findIndex((x) => x.id === over.id);
       insertAt = overIdx >= 0 ? overIdx : toList.length;
@@ -326,7 +327,7 @@ export default function Kanban() {
             collisionDetection={closestCenter}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            modifiers={[restrictToWindowEdges]}  
+            modifiers={[restrictToWindowEdges]}
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
               {[
