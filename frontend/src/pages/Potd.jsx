@@ -75,13 +75,11 @@ const Potd = () => {
   const [handleInput, setHandleInput] = useState("");
   const [error, setError] = useState("");
 
-  // Derived text for rating chip
   const ratingText = useMemo(() => {
     if (rating == null) return "";
     return `Rating: ${rating}`;
   }, [rating]);
 
-  // Load handle from token/localStorage, then fetch rating & sets
   useEffect(() => {
     const token = localStorage.getItem("token"); // or cookie check
     if (!token) {

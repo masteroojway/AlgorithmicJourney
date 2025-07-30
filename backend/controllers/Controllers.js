@@ -24,7 +24,8 @@ export async function getlogin(req, res) {
                 name: user.name,
                 email: user.email,
                 id: user._id,
-                cfAcc: user.cfAcc
+                cfAcc: user.cfAcc,
+                dashboard: user.dashboard
             },
             process.env.JWT_KEY,
             { expiresIn: "1h" }
