@@ -6,8 +6,8 @@ const DefaultLanding = () => {
       {/* Subtle animated gradient background */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#101114] via-[#0b0b0c] to-[#050506] animate-pulse opacity-80 blur-sm z-0" />
 
-      {/* Header (fixed, responsive) */}
-      <header className="fixed top-0 left-0 w-full z-10 bg-transparent backdrop-blur-md">
+      {/* Header (sticky, responsive) */}
+      <header className="sticky top-0 left-0 w-full z-20 bg-transparent backdrop-blur-md">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <img
@@ -33,7 +33,7 @@ const DefaultLanding = () => {
         </div>
       </header>
 
-      <main className="relative z-10 flex-1 pt-24 px-4 sm:px-6 py-12 pb-24">
+      <main className="relative z-10 flex-1 px-4 sm:px-6 py-12 pb-24">
         {/* Hero */}
         <div className="w-full max-w-3xl mx-auto text-center mb-10">
           <div className="bg-[#18191c]/60 backdrop-blur-lg rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.4)] px-6 py-12 animate-fadeInUp">
