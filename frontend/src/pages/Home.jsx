@@ -1,20 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Plain JS: compute initial value safely (no TS types)
 const getInitialDashboard = () => {
-  // guard for SSR/test environments where window/localStorage may not exist
   if (typeof window === "undefined") return "compsci";
-
   const stored = window.localStorage.getItem("dashboard");
   return stored === "electronics" || stored === "compsci" ? stored : "compsci";
 };
 
+/** Base64url → JSON decoder for JWT payload */
+function decodeJwt(token) {
+  try {
+    const base64Url = token?.split(".")[1];
+    if (!base64Url) return null;
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = base64.padEnd(base64.length + (4 - (base64.length % 4)) % 4, "=");
+    const json = atob(padded);
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
+}
+
+/** Is the JWT currently valid (has a future exp)? */
+function isTokenActive(payload) {
+  if (!payload || typeof payload.exp !== "number") return false;
+  const nowSec = Math.floor(Date.now() / 1000);
+  return payload.exp > nowSec;
+}
+
 const Home = () => {
   const navigate = useNavigate();
-
-  // no generic; just use the initializer function
   const [dashboard, setDashboard] = useState(getInitialDashboard);
+  const [checkedAuth, setCheckedAuth] = useState(false); // avoid UI flash before auth check
+  const expiryTimerRef = useRef(null);
 
   // helpers for gradient switching
   const isCS = dashboard === "compsci";
@@ -28,11 +47,67 @@ const Home = () => {
   }, [dashboard]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = window.localStorage.getItem("token"); // or cookie check
-      if (!token) navigate("/login");
-    }
+    if (typeof window === "undefined") return;
+
+    const clearExpiryTimer = () => {
+      if (expiryTimerRef.current) {
+        clearTimeout(expiryTimerRef.current);
+        expiryTimerRef.current = null;
+      }
+    };
+
+    const enforceAuth = () => {
+      const token = window.localStorage.getItem("token");
+      if (!token) {
+        setCheckedAuth(true);
+        navigate("/login");
+        return;
+      }
+      const payload = decodeJwt(token);
+      if (!isTokenActive(payload)) {
+        // Optional: remove the stale token
+        window.localStorage.removeItem("token");
+        setCheckedAuth(true);
+        navigate("/login");
+        return;
+      }
+
+      // Schedule auto-redirect exactly at expiry
+      clearExpiryTimer();
+      const msUntilExpiry = payload.exp * 1000 - Date.now();
+      if (msUntilExpiry > 0) {
+        expiryTimerRef.current = setTimeout(() => {
+          window.localStorage.removeItem("token");
+          navigate("/login");
+        }, msUntilExpiry + 50);
+      }
+
+      setCheckedAuth(true);
+    };
+
+    enforceAuth();
+
+    // Re-check if token changes in another tab
+    const onStorage = (e) => {
+      if (e.key === "token") enforceAuth();
+    };
+    window.addEventListener("storage", onStorage);
+
+    // Re-check when tab becomes visible (in case it expired while hidden)
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") enforceAuth();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      document.removeEventListener("visibilitychange", onVisibility);
+      clearExpiryTimer();
+    };
   }, [navigate]);
+
+  // Optionally render nothing until we've confirmed auth, to prevent a flash of content
+  if (!checkedAuth) return null;
 
   return (
     <div className="min-h-screen bg-[#0b0c0f] text-[#f0f0f0] font-sans flex justify-center px-4 relative overflow-hidden">
@@ -55,9 +130,7 @@ const Home = () => {
             aria-selected={dashboard === "compsci"}
             onClick={() => setDashboard("compsci")}
             className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all ${
-              dashboard === "compsci"
-                ? `${csGrad} text-black`
-                : "text-gray-300 hover:text-white hover:bg-white/5"
+              isCS ? `${csGrad} text-black` : "text-gray-300 hover:text-white hover:bg-white/5"
             }`}
           >
             Computer Science
@@ -67,9 +140,7 @@ const Home = () => {
             aria-selected={dashboard === "electronics"}
             onClick={() => setDashboard("electronics")}
             className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all ${
-              dashboard === "electronics"
-                ? `${elGrad} text-black`
-                : "text-gray-300 hover:text-white hover:bg-white/5"
+              !isCS ? `${elGrad} text-black` : "text-gray-300 hover:text-white hover:bg-white/5"
             }`}
           >
             Electronics
@@ -98,7 +169,7 @@ const Home = () => {
         </div>
 
         <div className="flex flex-col items-center">
-          {dashboard === "compsci" && (
+          {isCS && (
             <Link
               to="/notes"
               className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
@@ -107,7 +178,7 @@ const Home = () => {
             </Link>
           )}
 
-          {dashboard === "compsci" && (
+          {isCS && (
             <Link
               to="/potd"
               className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"

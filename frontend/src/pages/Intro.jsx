@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 /** Base64url → JSON decoder for JWT payload */
@@ -26,22 +26,72 @@ function getDisplayName(payload) {
   return email.split("@")[0] || "User";
 }
 
+/** Is the JWT currently valid (has a future exp)? */
+function isTokenActive(payload) {
+  if (!payload || typeof payload.exp !== "number") return false;
+  const nowSec = Math.floor(Date.now() / 1000);
+  return payload.exp > nowSec;
+}
+
 const DefaultLanding = () => {
   const [displayName, setDisplayName] = useState(null);
+  const expiryTimerRef = useRef(null);
+
+  // Clear any pending expiry timer
+  const clearExpiryTimer = () => {
+    if (expiryTimerRef.current) {
+      clearTimeout(expiryTimerRef.current);
+      expiryTimerRef.current = null;
+    }
+  };
+
+  const scheduleExpiry = (expSec) => {
+    clearExpiryTimer();
+    if (typeof expSec !== "number") return;
+    const ms = expSec * 1000 - Date.now();
+    if (ms > 0) {
+      expiryTimerRef.current = setTimeout(() => {
+        // token has expired; hide display name
+        setDisplayName(null);
+      }, ms + 50); // small buffer
+    }
+  };
 
   // On mount and when token changes in other tabs, update UI
   useEffect(() => {
     const read = () => {
       const token = localStorage.getItem("token");
       const payload = decodeJwt(token);
-      setDisplayName(payload ? getDisplayName(payload) : null);
+
+      if (isTokenActive(payload)) {
+        setDisplayName(getDisplayName(payload));
+        scheduleExpiry(payload.exp);
+      } else {
+        setDisplayName(null);
+        clearExpiryTimer();
+      }
     };
+
     read();
+
     const onStorage = (e) => {
       if (e.key === "token") read();
     };
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+
+    // Also update when tab regains focus (in case it expired while hidden)
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") {
+        read();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      document.removeEventListener("visibilitychange", onVisibility);
+      clearExpiryTimer();
+    };
   }, []);
 
   const isLoggedIn = useMemo(() => Boolean(displayName), [displayName]);
@@ -63,8 +113,11 @@ const DefaultLanding = () => {
 
             <div className="flex gap-3 w-full sm:w-auto justify-center sm:justify-end">
               {isLoggedIn ? (
-                // Logged-in view: show a user chip (and keep CTAs out)
-                <Link to="/home"className="flex items-center gap-2 rounded-xl bg-[#1d1d1d] border border-white/10 px-3 py-2 hover:scale-105">
+                // Logged-in view: show a user chip
+                <Link
+                  to="/home"
+                  className="flex items-center gap-2 rounded-xl bg-[#1d1d1d] border border-white/10 px-3 py-2 hover:scale-105"
+                >
                   {/* small circle with initials */}
                   <span className="flex items-center justify-center h-6 w-6 rounded-full bg-[#3997cc] text-black text-xs font-bold">
                     {displayName?.[0]?.toUpperCase() || "U"}
