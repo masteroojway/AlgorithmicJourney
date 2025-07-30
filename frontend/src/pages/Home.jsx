@@ -1,21 +1,36 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+// Plain JS: compute initial value safely (no TS types)
+const getInitialDashboard = () => {
+  // guard for SSR/test environments where window/localStorage may not exist
+  if (typeof window === "undefined") return "compsci";
+
+  const stored = window.localStorage.getItem("dashboard");
+  return stored === "electronics" || stored === "compsci" ? stored : "compsci";
+};
+
 const Home = () => {
   const navigate = useNavigate();
 
-  const [dashboard, setDashboard] = useState(() => {
-    return localStorage.getItem("dashboard") || "compsci";
-  });
+  // no generic; just use the initializer function
+  const [dashboard, setDashboard] = useState(getInitialDashboard);
+
+  // helpers for gradient switching
+  const isCS = dashboard === "compsci";
+  const csGrad = "bg-gradient-to-r from-[#3997cc] to-[#7fbfff]";
+  const elGrad = "bg-gradient-to-r from-[#34d399] to-[#a7f3d0]";
 
   useEffect(() => {
-    localStorage.setItem("dashboard", dashboard);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("dashboard", dashboard);
+    }
   }, [dashboard]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // or cookie check
-    if (!token) {
-      navigate("/login");
+    if (typeof window !== "undefined") {
+      const token = window.localStorage.getItem("token"); // or cookie check
+      if (!token) navigate("/login");
     }
   }, [navigate]);
 
@@ -41,7 +56,7 @@ const Home = () => {
             onClick={() => setDashboard("compsci")}
             className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all ${
               dashboard === "compsci"
-                ? "bg-gradient-to-r from-[#3997cc] to-[#7fbfff] text-black"
+                ? `${csGrad} text-black`
                 : "text-gray-300 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -53,7 +68,7 @@ const Home = () => {
             onClick={() => setDashboard("electronics")}
             className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all ${
               dashboard === "electronics"
-                ? "bg-gradient-to-r from-[#3997cc] to-[#7fbfff] text-black"
+                ? `${elGrad} text-black`
                 : "text-gray-300 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -70,41 +85,50 @@ const Home = () => {
             className="w-[90px] transition-transform duration-300 hover:scale-105 drop-shadow-[0_0_4px_rgba(77,184,255,0.25)]"
           />
 
-          <h1 className="text-[2.5rem] sm:text-[3.2rem] font-mono font-semibold text-center bg-gradient-to-r from-[#7fbfff] via-[#3997cc] to-[#7fbfff] bg-clip-text text-transparent animate-gradient tracking-wide">
+          <h1
+            className={`text-[2.5rem] sm:text-[3.2rem] font-mono font-semibold text-center 
+            bg-gradient-to-r ${
+              isCS
+                ? "from-[#7fbfff] via-[#3997cc] to-[#7fbfff]" // blue for compsci
+                : "from-[#a7f3d0] via-[#34d399] to-[#a7f3d0]" // green for electronics
+            } bg-clip-text text-transparent animate-gradient tracking-wide`}
+          >
             Algorithmic Journey
           </h1>
         </div>
 
         <div className="flex flex-col items-center">
-          {(dashboard === "compsci" &&
-          <Link
-            to="/notes"
-            className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
-          >
-            Notes
-          </Link>
+          {dashboard === "compsci" && (
+            <Link
+              to="/notes"
+              className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
+            >
+              Notes
+            </Link>
           )}
-          {(dashboard === "compsci" &&
-          <Link
-            to="/potd"
-            className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
-          >
-            Problem of the Day
-          </Link>)
-          }
+
+          {dashboard === "compsci" && (
+            <Link
+              to="/potd"
+              className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
+            >
+              Problem of the Day
+            </Link>
+          )}
+
           <Link
             to="/pomodoro"
             className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
           >
             Pomodoro Timer
           </Link>
+
           <Link
             to="/kanban"
             className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
           >
             Kanban Board
           </Link>
-           
         </div>
       </main>
     </div>
