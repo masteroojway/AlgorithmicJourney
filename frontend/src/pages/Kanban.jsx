@@ -269,7 +269,7 @@ export default function Kanban() {
               Kanban Board
             </h1>
             <div className="flex gap-3">
-              <Link to="/" className="px-4 py-2 bg-[#1d1d1d] hover:bg-[#2a2a2a] rounded-xl text-xs sm:text-sm font-semibold border border-white/10">Home</Link>
+              <Link to="/home" className="px-4 py-2 bg-[#1d1d1d] hover:bg-[#2a2a2a] rounded-xl text-xs sm:text-sm font-semibold border border-white/10">Home</Link>
               <Link to="/notes" className="px-4 py-2 bg-[#3997cc] hover:bg-[#2a2a2a] text-black rounded-xl text-xs sm:text-sm font-semibold shadow-[0_0_10px_rgba(77,184,255,0.3)]">Notes</Link>
             </div>
           </div>
