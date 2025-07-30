@@ -100,3 +100,66 @@ export async function verifyotp(req, res) {
         return res.status(500).send("Internal server error");
     }
 }
+
+export async function kanban(req, res) {
+  try {
+    const email = (req.query?.email || "").trim().toLowerCase();
+    if (!email) {
+      return res.status(400).json({ message: "Email is required." });
+    }
+    const user = await User.findOne({ email }, { kanban: 1, _id: 0 });
+    if (!user) {
+      return res.json({ pending: [], progress: [], completed: [] });
+    }
+    const { pending = [], progress = [], completed = [] } = user.kanban || {};
+    return res.json({ pending, progress, completed });
+  } catch (error) {
+    console.error("GET /kanban error:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+function toStringArray(v) {
+  if (!Array.isArray(v)) return [];
+  return v.map((x) => String(x ?? "")).filter(Boolean);
+}
+
+export async function expkanban(req, res) {
+  try {
+    const email = (req.body?.email || "").trim().toLowerCase();
+    if (!email) {
+      return res.status(400).json({ message: "Email is required in request body." });
+    }
+
+    const pending   = toStringArray(req.body?.pending);
+    const progress  = toStringArray(req.body?.progress);
+    const completed = toStringArray(req.body?.completed);
+
+    // Build only provided fields; but usually you send all three from the client
+    const $set = {
+      "kanban.pending": pending,
+      "kanban.progress": progress,
+      "kanban.completed": completed,
+    };
+
+    const user = await User.findOneAndUpdate(
+      { email },
+      { $set },
+      { new: true } // return updated doc
+      // If you want to auto-create the user (not recommended if you already have auth):
+      // { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found for the given email." });
+    }
+
+    return res.json({
+      message: "Kanban updated.",
+      kanban: user.kanban,
+    });
+  } catch (err) {
+    console.error("PUT /kanban error:", err);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+}

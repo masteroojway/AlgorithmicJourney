@@ -8,6 +8,7 @@ import Register from './pages/Register'
 import DefaultLanding from './pages/Intro'
 import Pomodoro from './pages/Pomodoro'
 import Potd from './pages/Potd'
+import Kanban from './pages/Kanban'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<DefaultLanding />} />
         <Route path='/pomodoro' element={<Pomodoro />} />
         <Route path='/potd' element={<Potd />} />
+        <Route path='/kanban' element={<Kanban />} />
       </Routes>
     </Router>
   )

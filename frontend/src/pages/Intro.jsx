@@ -34,7 +34,6 @@ const DefaultLanding = () => {
       </header>
 
       <main className="relative z-10 flex-1 px-4 sm:px-6 py-12 pb-24">
-        {/* Hero */}
         <div className="w-full max-w-3xl mx-auto text-center mb-10">
           <div className="bg-[#18191c]/60 backdrop-blur-lg rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.4)] px-6 py-12 animate-fadeInUp">
             <h1 className="text-4xl sm:text-6xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-[#7fbfff] via-[#3997cc] to-[#7fbfff] animate-gradient tracking-normal sm:tracking-wide drop-shadow-[0_0_10px_rgba(77,184,255,0.3)] mb-6 pr-2 overflow-visible inline-block">

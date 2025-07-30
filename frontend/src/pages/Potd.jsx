@@ -69,8 +69,8 @@ const Potd = () => {
   const [loading, setLoading] = useState(true);
   const [loadingSets, setLoadingSets] = useState(false);
 
-  const [problems, setProblems] = useState([]);     // Normal
-  const [thinkProblems, setThinkProblems] = useState([]); // Think Hard
+  const [problems, setProblems] = useState([]);
+  const [thinkProblems, setThinkProblems] = useState([]); 
 
   const [handleInput, setHandleInput] = useState("");
   const [error, setError] = useState("");

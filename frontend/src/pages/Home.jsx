@@ -8,7 +8,6 @@ const Home = () => {
     return localStorage.getItem("dashboard") || "compsci";
   });
 
-  // Persist preference
   useEffect(() => {
     localStorage.setItem("dashboard", dashboard);
   }, [dashboard]);
@@ -85,21 +84,27 @@ const Home = () => {
             Notes
           </Link>
           )}
-
+          {(dashboard === "compsci" &&
+          <Link
+            to="/potd"
+            className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
+          >
+            Problem of the Day
+          </Link>)
+          }
           <Link
             to="/pomodoro"
             className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
           >
             Pomodoro Timer
           </Link>
-          {(dashboard === "compsci" &&
           <Link
-            to="/potd"
+            to="/kanban"
             className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
           >
-            POTD
-          </Link>)
-          } 
+            Kanban Board
+          </Link>
+           
         </div>
       </main>
     </div>
