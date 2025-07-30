@@ -83,6 +83,12 @@ const Potd = () => {
 
   // Load handle from token/localStorage, then fetch rating & sets
   useEffect(() => {
+    const token = localStorage.getItem("token"); // or cookie check
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
+  useEffect(() => {
     (async () => {
       const token = localStorage.getItem("token");
       if (!token) {
