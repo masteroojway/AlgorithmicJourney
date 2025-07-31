@@ -259,7 +259,7 @@ const DefaultLanding = () => {
 
       <footer className="relative z-10 mt-auto border-t border-white/10 w-full">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
-          <p>© {new Date().getFullYear()} Algorithmic Journey</p>
+          <p>{new Date().getFullYear()} Algorithmic Journey</p>
           <a
             href="https://github.com/masteroojway/AlgorithmicJourney"
             className="hover:text-white transition-colors underline underline-offset-4"
