@@ -9,6 +9,7 @@ import DefaultLanding from './pages/Intro'
 import Pomodoro from './pages/Pomodoro'
 import Potd from './pages/Potd'
 import Kanban from './pages/Kanban'
+import IDEcompiler from './pages/IDEcompiler'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/pomodoro' element={<Pomodoro />} />
         <Route path='/potd' element={<Potd />} />
         <Route path='/kanban' element={<Kanban />} />
+        <Route path='/codeenv' element={<IDEcompiler />} />
       </Routes>
     </Router>
   )

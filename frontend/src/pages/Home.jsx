@@ -187,6 +187,14 @@ const Home = () => {
             </Link>
           )}
 
+          {isCS && (
+            <Link
+              to="/codeenv"
+              className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"
+            >
+              Programming Template
+            </Link>
+          )}
           <Link
             to="/pomodoro"
             className="w-[90%] max-w-[500px] py-5 px-10 my-3 text-lg rounded-xl bg-[#1c1c1c] text-white text-center no-underline transition-all duration-200 hover:bg-[#2d2d2d] hover:scale-105"

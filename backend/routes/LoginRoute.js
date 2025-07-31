@@ -1,5 +1,5 @@
 import express from "express"
-import { expkanban, getlogin, kanban, register, verifyotp } from "../controllers/Controllers.js";
+import { expkanban, getlogin, getTemplates, kanban, register, saveTemplates, verifyotp } from "../controllers/Controllers.js";
 import { requireAuth } from "../middleware/middleAuth.js";
 
 const router = express.Router();
@@ -12,7 +12,12 @@ router.get("/home", requireAuth, (req, res) => {
         user: req.user
     });
 })
-router.post("/verify-otp", verifyotp)
+router.post("/verify-otp", verifyotp);
 router.get("/kanban", kanban);
-router.put("/kanban", expkanban)
+
+router.put("/kanban", expkanban);
+
+router.get("/template", requireAuth, getTemplates);
+router.put("/template", requireAuth, saveTemplates);
+
 export default router;

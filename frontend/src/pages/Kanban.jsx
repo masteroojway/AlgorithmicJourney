@@ -139,7 +139,6 @@ export default function Kanban() {
   const email = useMemo(() => decode(token)?.email?.toLowerCase(), [token]);
   const api = useMemo(() => axios.create({ baseURL: import.meta.env.VITE_BASE_URL }), []);
 
-  /* guards & fetch */
   useEffect(() => { if (!token) navigate("/login"); }, [token, navigate]);
 
   useEffect(() => {

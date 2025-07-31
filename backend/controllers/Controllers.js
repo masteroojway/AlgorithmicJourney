@@ -145,9 +145,7 @@ export async function expkanban(req, res) {
     const user = await User.findOneAndUpdate(
       { email },
       { $set },
-      { new: true } // return updated doc
-      // If you want to auto-create the user (not recommended if you already have auth):
-      // { new: true, upsert: true, setDefaultsOnInsert: true }
+      { new: true }
     );
 
     if (!user) {
@@ -163,3 +161,39 @@ export async function expkanban(req, res) {
     return res.status(500).json({ message: "Internal server error." });
   }
 }
+
+
+
+// get templates for the logged-in user
+export async function getTemplates(req, res) {
+  try {
+    const user = await User.findById(req.user.id).select("templates");
+    res.status(200).json(user.templates);
+  } catch (err) {
+    console.error("Get templates error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+export async function saveTemplates(req, res) {
+  const { language, code } = req.body;
+
+  if (!["java", "cpp", "python"].includes(language)) {
+    return res.status(400).json({ error: "Unsupported language" });
+  }
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { [`templates.${language}`]: code },
+      { new: true }
+    ).select("templates");
+
+    res.status(200).json({ message: "Template saved", templates: user.templates });
+  } catch (err) {
+    console.error("Save template error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+

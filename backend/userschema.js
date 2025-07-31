@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema({
             progress: [],
             completed: []
         })
+    },
+    templates: {
+        java: { type: String, default: "" },
+        cpp: { type: String, default: "" },
+        python: { type: String, default: "" },
     }
 },{timestamps: true})
 
