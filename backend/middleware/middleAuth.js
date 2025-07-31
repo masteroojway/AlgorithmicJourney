@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "ujjwalhyd@gmail.com",
+    user: "journeyalgorithmic@gmail.com",
     pass: process.env.GMAIL_PASS,
   },
 });
@@ -32,11 +32,16 @@ const transporter = nodemailer.createTransport({
 export async function sendMail(mail, genotp) {
   try {
     const info = await transporter.sendMail({
-      from: '"Algorithmic Journey" <ujjwalhyd@gmail.com>',
+      from: '"Algorithmic Journey" <journeyalgorithmic@gmail.com>',
       to: mail,
       subject: "Verify your Algorithmic Journey account",
       text: `Your OTP is ${genotp}`,
-      html: `<p>Your OTP is <b>${genotp}</b>. It will expire in 5 minutes.</p>`,
+      html: `<p>
+        Hi there! To complete your login to <em>Algorithmic Journey</em>, use this code:<br>
+        <strong><code>${genotp}</code></strong><br>
+        This code will expire in 5 minutes.
+      </p>
+      `,
     });
 
   } catch (error) {
