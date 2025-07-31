@@ -26,6 +26,8 @@ const IDEcompiler = () => {
   const [language, setLanguage] = useState("cpp");
   const [code, setCode] = useState("");
   const expiryTimerRef = useRef(null);
+  const [charCount, setCharCount] = useState(0);
+  const MAX_CODE_LENGTH = 5000;
 
   useEffect(() => {
     const enforceAuth = () => {
@@ -72,6 +74,7 @@ const IDEcompiler = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCode(res.data[language] || "");
+        setCharCount((res.data[language] || "").length);
       } catch (err) {
         console.error("Template fetch failed:", err);
       }
@@ -125,15 +128,30 @@ const IDEcompiler = () => {
 
         <textarea
           value={code}
-          onChange={(e) => setCode(e.target.value)}
+          onChange={(e) => {
+            const newCode = e.target.value;
+            if (newCode.length <= MAX_CODE_LENGTH) {
+              setCode(newCode);
+              setCharCount(newCode.length);
+            }
+          }}
           rows="14"
-          className="w-full font-mono text-sm bg-black text-white border border-gray-700 rounded-lg p-4 resize-none mb-6"
+          className="w-full font-mono text-sm bg-black text-white border border-gray-700 rounded-lg p-4 resize-none mb-2"
           placeholder="Write your code..."
         />
 
+        <div className="text-sm text-gray-400 mb-4 text-right">
+          {charCount}/{MAX_CODE_LENGTH} characters
+        </div>
+
         <button
           onClick={saveTemplate}
-          className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-semibold"
+          disabled={charCount > MAX_CODE_LENGTH}
+          className={`px-6 py-2 rounded-lg font-semibold ${
+            charCount > MAX_CODE_LENGTH
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700"
+          }`}
         >
           Save Template
         </button>
