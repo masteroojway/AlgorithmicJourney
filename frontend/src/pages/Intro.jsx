@@ -171,11 +171,9 @@ const DefaultLanding = () => {
           </div>
         </div>
 
-        {/* Features */}
         <section className="w-full max-w-6xl mx-auto">
           <h2 className="sr-only">Features</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {/* Pomodoro */}
             <article className="bg-[#18191c]/60 backdrop-blur-lg rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(0,0,0,0.35)] p-5">
               <div className="flex items-start justify-between">
                 <h3 className="text-lg font-semibold">Pomodoro</h3>
@@ -196,7 +194,6 @@ const DefaultLanding = () => {
               </div>
             </article>
 
-            {/* Notes */}
             <article className="bg-[#18191c]/60 backdrop-blur-lg rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(0,0,0,0.35)] p-5">
               <div className="flex items-start justify-between">
                 <h3 className="text-lg font-semibold">Notes</h3>
@@ -217,7 +214,6 @@ const DefaultLanding = () => {
               </div>
             </article>
 
-            {/* Kanban */}
             <article className="bg-[#18191c]/60 backdrop-blur-lg rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(0,0,0,0.35)] p-5">
               <div className="flex items-start justify-between">
                 <h3 className="text-lg font-semibold">Kanban</h3>
@@ -238,7 +234,6 @@ const DefaultLanding = () => {
               </div>
             </article>
 
-            {/* Problem of the Day */}
             <article className="bg-[#18191c]/60 backdrop-blur-lg rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(0,0,0,0.35)] p-5">
               <div className="flex items-start justify-between">
                 <h3 className="text-lg font-semibold">Problem of the Day</h3>
@@ -262,7 +257,6 @@ const DefaultLanding = () => {
         </section>
       </main>
 
-      {/* Footer (sticks to bottom) */}
       <footer className="relative z-10 mt-auto border-t border-white/10 w-full">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
           <p>© {new Date().getFullYear()} Algorithmic Journey</p>
