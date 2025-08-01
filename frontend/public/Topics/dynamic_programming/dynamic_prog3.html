@@ -10,8 +10,81 @@
     <h1>Dynamic Programming - 3</h1>
     <h2>Covered in this section: </h2>
     <ul>
+        <li>Max range sum</li>
         <li>Problems on 2-D DP</li>
     </ul>
+
+    <h3><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank">Max Range Sum (1-D) — Kadane's Algorithm</a></h3>
+
+    <p>
+        This classic problem asks us to find the maximum sum of a contiguous subarray in a given integer array.
+        A naive solution involves calculating prefix sums and checking all possible subarrays, which takes O(n<sup>2</sup>) time.
+        A more optimal and elegant approach is Kadane's Algorithm.
+        We maintain a running sum, resetting it to 0 when it becomes negative, and track the maximum seen so far.
+    </p>
+    <p>Here is the pseudo-code that solves this problem efficiently in O(n) time:</p>
+    <pre><code>
+    int maxSubArray(vector&lt;int&gt;& nums) {
+        int maxSum = nums[0];
+        int currentSum = 0;
+
+        for(int num : nums) {
+            currentSum = max(num, currentSum + num);
+            maxSum = max(maxSum, currentSum);
+        }
+
+        return maxSum;
+    }
+    </code></pre>
+    <p>
+        The key idea is that if adding the current element worsens the sum, we reset the running total to just that element.
+        This way, we always track the best subarray seen so far as we scan left to right.
+    </p>
+    <h3>Maximal Range Sum (2-D)</h3>
+    <img src="./pictures/dp2.png" alt="2D Kadane Illustration">
+    <p>
+        This is a 2D version of the maximum subarray sum problem, where we are given a 2D matrix and are required to find the rectangle (submatrix) with the maximum sum.
+        The brute-force approach would involve checking every possible submatrix which leads to a time complexity of O(n<sup>4</sup>).
+        A more efficient approach reduces this to O(n<sup>3</sup>) using an adaptation of Kadane's algorithm.
+    </p>
+    <p>
+        The key idea is to fix the left and right boundaries of the submatrix and compress each column between those boundaries into a temporary 1D array.
+        We then apply the standard Kadane's algorithm on this 1D array to find the best vertical strip for that left-right pair.
+    </p>
+
+    <p>Here is the pseudo-code that implements this approach:</p>
+    <pre><code>
+    int maxSumRectangle(vector&lt;vector&lt;int&gt;&gt;& matrix) {
+        int n = matrix.size(), m = matrix[0].size();
+        int maxSum = INT_MIN;
+
+        for(int left = 0; left &lt; m; left++) {
+            vector&lt;int&gt; temp(n, 0);
+            for(int right = left; right &lt; m; right++) {
+                for(int i = 0; i &lt; n; i++) {
+                    temp[i] += matrix[i][right];
+                }
+
+                // Apply Kadane's on temp array
+                int currentSum = temp[0], best = temp[0];
+                for(int i = 1; i &lt; n; i++) {
+                    currentSum = max(temp[i], currentSum + temp[i]);
+                    best = max(best, currentSum);
+                }
+
+                maxSum = max(maxSum, best);
+            }
+        }
+
+        return maxSum;
+    }
+</code></pre>
+
+<p>
+    This approach works efficiently for reasonably sized matrices and is commonly used in problems involving maximum submatrix sum.
+    It leverages the fact that Kadane's algorithm can still be applied when we reduce the 2D space into 1D slices.
+</p>
+
     <h3><a href="https://leetcode.com/problems/maximal-square/description/" target="_blank">Maximal Square (Leetcode)</a></h3>
     <img src="./pictures/dp1.png">
     <p>
@@ -20,7 +93,8 @@
         Instead, we use dynamic programming where <code>dp[i][j]</code> represents the size of the largest square 
         ending at cell <code>(i, j)</code>. The image above explains the intuition of the solution.
         Here is the pseudo-code that solves this problem.
-        <pre><code>
+    </p>
+    <pre><code>
     for(int i = 0; i &lt; n; i++) {
         for(int j = 0; j &lt; m; j++) {
             if(matrix[i][j] == '1') {
@@ -35,10 +109,10 @@
             }
         }
     }
-        </code></pre>
+    </code></pre>
+    <p>
         This ensures that a square can only be formed if all three adjacent directions also form squares.
         The maximum value in the <code>dp</code> table gives the side length of the largest square, and squaring it gives the area.
     </p>
-
 </body>
 </html>

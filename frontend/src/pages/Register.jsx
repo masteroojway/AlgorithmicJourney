@@ -198,7 +198,7 @@ const Register = () => {
       {otpmode && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center">
           <div className="bg-[#22252A] p-6 rounded-xl shadow-lg w-[90%] max-w-sm border border-white/10">
-            <h3 className="text-xl font-semibold mb-4 text-center">Enter OTP (Check spam folder)</h3>
+            <h3 className="text-xl font-semibold mb-4 text-center">Enter OTP (check Spam)</h3>
             <form onSubmit={handleOtpSubmit} className="flex flex-col gap-4">
               <input
                 type="text"

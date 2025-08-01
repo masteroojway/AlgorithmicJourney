@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <h1>Binary Search - 3</h1>
+    <h2>Covered in this section: </h2>
+    <ul>
+        <li>Floating point precision in search</li>
+        <li>Ternary search</li>
+    </ul>
+    <h3>Floating-Point Precision in Search</h3>
+    <p>
+        When performing binary or ternary search on <strong>floating-point values</strong>, we can't rely on exact equality due to precision limitations of floating-point numbers.
+        Instead of checking <code>lo <= hi</code>, we check whether the difference between <code>lo</code> and <code>hi</code> is within a small acceptable range (called <em>epsilon</em> or <code>eps</code>).
+    </p>
+    <p>
+        <code>while (fabs(hi - lo) > eps)</code> means:
+    </p>
+    <ul>
+        <li>Keep searching as long as the range [lo, hi] is larger than a tiny threshold <code>eps</code>.</li>
+        <li>Once the range is sufficiently small, we consider it "close enough" and stop.</li>
+    </ul>
+
+    <h4>Why <code>fabs</code>?</h4>
+    <p>
+        <code>fabs(x)</code> is the floating-point absolute value function in C++. It ensures we’re comparing the absolute difference between <code>hi</code> and <code>lo</code>, regardless of which is larger.
+    </p>
+
+    <h4>Choosing the value of <code>eps</code>:</h4>
+    <ul>
+        <li>Typical values: <code>1e-6</code>, <code>1e-7</code>, <code>1e-9</code></li>
+        <li>Smaller <code>eps</code> → more precision but slower convergence</li>
+    </ul>
+
+    <h4>Example:</h4>
+    <pre><code>
+    double eps = 1e-9;
+    while (fabs(hi - lo) > eps) {
+        double mid = (lo + hi) / 2;
+        if (f(mid)) {
+            hi = mid;
+        } else {
+            lo = mid;
+        }
+    }
+    // lo and hi are now close enough to be considered equal
+    </code></pre>
+
+    <h3>Ternary Search</h3>
+    <p>
+        Sometimes, we cannot outright eliminate one half of the search space. For example, when trying to find the minimum 
+        of a parabolic or unimodal function, we can't directly apply binary search. Instead, we divide the range into 
+        three parts and eliminate the portion that cannot contain the minimum.
+    </p>
+    <p>Here’s a visualization of such a function:</p>
+    <img src="./pictures/binarysearch3.png" alt="Ternary Search Visualization">
+
+    <h2>Code Example (C++):</h2>
+    <pre><code>
+    double ternarySearch(double l, double r) {
+        while (r - l > 1e-9) {
+            double m1 = l + (r - l) / 3;
+            double m2 = r - (r - l) / 3;
+
+            if (f(m1) > f(m2)) {
+                r = m2;
+            } else {
+                l = m1;
+            }
+        }
+        return l; // or (l + r) / 2
+    }
+
+    double f(double x) {
+        return (x - 2) * (x - 2) + 3; // a simple parabola with minimum at x = 2
+    }
+    </code></pre>
+</body>
+</html>

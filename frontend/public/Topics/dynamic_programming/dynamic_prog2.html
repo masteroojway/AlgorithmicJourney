@@ -14,14 +14,68 @@
     </ul>
     <h2>DP on subsequences</h2>
     <h3><a href="https://leetcode.com/problems/target-sum/description/" target="_blank">Target Sum (LeetCode)</a></h3>
-    <h2>Longest increasing subsequences</h2>
+    <h2>Longest Increasing Subsequence (LIS)</h2>
     <p>
-        Tabulation approach: <code>(O(n^2) approach)</code> => Our fundamental state dp[i] becomes: longest increasing subsequence ending at ith
-        index. We initialize dp[0] = 1, then for i, we look for j from 0 to i-1 such that num[j] is less than num[i] and update 
-        dp[i] = max(dp[i], num[j]+1).
-        <br />
-        Using binary search: 
+        <strong>Tabulation Approach (O(n<sup>2</sup>)):</strong><br />
+        We define <code>dp[i]</code> as the length of the longest increasing subsequence that ends at index <code>i</code>.<br />
+        Initialize all <code>dp[i] = 1</code>. Also maintain a <code>parent</code> array where <code>parent[i]</code> points to the previous index in the LIS ending at <code>i</code>.<br />
+        For each <code>i</code> from <code>0</code> to <code>n-1</code>, check all previous indices <code>j</code> where <code>j &lt; i</code>. 
+        If <code>nums[j] &lt; nums[i]</code> and <code>dp[j] + 1 &gt; dp[i]</code>, then update:
     </p>
+
+    <pre><code>
+    dp[i] = dp[j] + 1;
+    parent[i] = j;
+    </code></pre>
+
+    <p>
+        After filling <code>dp</code> and <code>parent</code>, backtrack from the index with the maximum <code>dp[i]</code> to reconstruct the LIS.
+    </p>
+
+    <hr />
+
+    <p>
+        <strong>Binary Search Optimization (O(n log n)) — With Reconstruction:</strong><br />
+        We maintain a dynamic array <code>lisIndices</code> to store the indices of potential LIS tails.<br />
+        We also keep:
+    </p>
+
+    <ul>
+        <li><code>parent[i]</code>: index of the previous element in the LIS ending at <code>i</code></li>
+        <li><code>lisIndices</code>: stores the last index of the smallest ending element of an LIS of each length</li>
+    </ul>
+
+    <pre><code>
+    int n = nums.size();
+    vector&lt;int&gt; parent(n, -1), lisIndices;
+    for (int i = 0; i &lt; n; ++i) {
+        auto it = lower_bound(
+            lisIndices.begin(), lisIndices.end(), nums[i],
+            [&](int index, int val) { return nums[index] &lt; val; });
+
+        int idx = it - lisIndices.begin();
+        if (it == lisIndices.end()) {
+            lisIndices.push_back(i);
+        } else {
+            lisIndices[idx] = i;
+        }
+
+        if (idx &gt; 0)
+            parent[i] = lisIndices[idx - 1];
+    }
+
+    // Reconstruct LIS
+    vector&lt;int&gt; LIS;
+    for (int i = lisIndices.back(); i != -1; i = parent[i])
+        LIS.push_back(nums[i]);
+
+    reverse(LIS.begin(), LIS.end());
+    </code></pre>
+
+    <p>
+        The resulting vector <code>LIS</code> now contains the actual longest increasing subsequence.
+    </p>
+
     <a href="./dynamic_prog3.html" class="nextbtn">Next Lesson</a>
 </body>
 </html>
