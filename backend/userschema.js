@@ -45,7 +45,17 @@ const userSchema = new mongoose.Schema({
         java: { type: String, default: "" },
         cpp: { type: String, default: "" },
         python: { type: String, default: "" },
-    }
+    },
+    pomodoroHistory: {
+        type: [Number],
+        default: Array(52).fill(0),
+        },
+    dailyPomodoro: {
+        type: [Number],
+        default: Array(7).fill(0),
+    },
+
+
 },{timestamps: true})
 
 const User = mongoose.model("User", userSchema);

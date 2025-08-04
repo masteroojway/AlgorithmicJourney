@@ -3,21 +3,27 @@ import nodemailer from "nodemailer"
 import dotenv from "dotenv"
 dotenv.config();
 
-export function requireAuth(req,res,next){
-    const header = req.headers.authorization;
-    if(!header || !header.startsWith("Bearer "))
-    {
-        return res.status(401).send("No token provided");
-    }
-    const token = header.split(' ')[1];
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_KEY);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        return res.status(403).send("Invalid request");
-    }
+export function requireAuth(req, res, next) {
+  const header = req.headers.authorization;
+  console.log("🛡️ Auth header received:", header);
+
+  if (!header || !header.startsWith("Bearer ")) {
+    console.log("❌ Invalid or missing Bearer token");
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const token = header.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    req.user = decoded;
+    console.log("🔓 Auth success:", decoded.email);
+    next();
+  } catch (err) {
+    console.log("❌ Token verification failed:", err.message);
+    return res.status(401).json({ error: "Invalid token" });
+  }
 }
+
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
