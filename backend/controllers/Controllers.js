@@ -28,7 +28,7 @@ export async function getlogin(req, res) {
                 dashboard: user.dashboard
             },
             process.env.JWT_KEY,
-            { expiresIn: "1h" }
+            { expiresIn: "12h" }
         );
 
         return res.status(200).json({ token });
