@@ -34,27 +34,38 @@ router.get("/pomodoro", requireAuth, async (req, res) => {
 });
 router.put("/pomodoro", requireAuth, async (req, res) => {
   const { minutes, weekIndex, dayIndex } = req.body;
-    console.log("[PUT /pomodoro] Request body:", req.body);
   const user = await User.findById(req.user.id);
-  if (!user) {
-    console.log("[PUT /pomodoro] User not found:", req.user.id);
-    return res.status(404).json({ error: "User not found" });
-  }
-  console.log("[PUT /pomodoro] Before update:", {
-    weekly: user.pomodoroHistory?.[weekIndex],
-    daily: user.dailyPomodoro?.[dayIndex]
-  });
+  if (!user) return res.status(404).json({ error: "User not found" });
+
   if (!Array.isArray(user.pomodoroHistory)) user.pomodoroHistory = Array(52).fill(0);
   if (!Array.isArray(user.dailyPomodoro)) user.dailyPomodoro = Array(7).fill(0);
 
-  user.pomodoroHistory[weekIndex] += minutes;
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentWeekIndex = Math.floor(
+    ((now - new Date(currentYear, 0, 1)) / 1000 / 60 / 60 / 24 - now.getDay() + 1) / 7
+  );
+
+  // Reset yearly data on Jan 1
+  if (!user.lastPomodoroUpdate || user.lastPomodoroUpdate.getFullYear() < currentYear) {
+    user.pomodoroHistory = Array(52).fill(0);
+  }
+
+  // Reset weekly data on Monday
+  const lastUpdateWeekDay = user.lastPomodoroUpdate?.getDay(); // 0 = Sunday, 1 = Monday...
+  const todayWeekDay = now.getDay();
+  if (!user.lastPomodoroUpdate || todayWeekDay === 1 && lastUpdateWeekDay !== 1) {
+    user.dailyPomodoro = Array(7).fill(0);
+  }
+
+  user.pomodoroHistory[currentWeekIndex] += minutes;
   user.dailyPomodoro[dayIndex] += minutes;
+
+  user.lastPomodoroUpdate = now;
+
   await user.save();
-  console.log("[PUT /pomodoro] After update:", {
-    weekly: user.pomodoroHistory?.[weekIndex],
-    daily: user.dailyPomodoro?.[dayIndex]
-  });
   res.json({ message: "Updated" });
 });
+
 
 export default router;

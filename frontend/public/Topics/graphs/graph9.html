@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Graphs - 9</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <h1>Graphs - 9</h1>
+
+  <ul>
+    <li>All-Pairs Shortest Paths (APSP)</li>
+  </ul>
+
+  <h2>APSP Motivation</h2>
+  <p>
+    Up till now we've looked at shortest paths from a single source (SSSP) using algorithms such as
+    Dijkstra and Bellman-Ford. Sometimes we need the shortest path between <em>every</em> pair of vertices:
+    from each node <code>i</code> to each node <code>j</code>. One naive approach is to run Dijkstra (or Bellman-Ford
+    if negative edges exist) from every vertex — that works, but there is a compact and simple-to-implement
+    alternative: the <strong>Floyd-Warshall</strong> algorithm.
+  </p>
+
+  <h2>Floyd-Warshall algorithm</h2>
+  <p>
+    Floyd-Warshall is a dynamic programming algorithm that computes shortest paths between all pairs of vertices
+    in <code>O(V³)</code> time and <code>O(V²)</code> memory. Its main advantage is the simplicity and short
+    implementation, which makes it useful when dense graphs or small vertex counts are involved.
+  </p>
+
+  <h3>Idea (high level)</h3>
+  <p>
+    Let <code>dp[i][j]</code> be the shortest distance from vertex <code>i</code> to vertex <code>j</code>
+    using only intermediate vertices from the set <code>{0,1,...,k-1}</code>. When we allow vertex <code>k</code>
+    as an intermediate vertex as well, distances update as:
+  </p>
+
+  <pre><code>
+    for (int k = 0; k &lt; V; ++k) {
+    for (int i = 0; i &lt; V; ++i) {
+        for (int j = 0; j &lt; V; ++j) {
+        dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j]);
+        }
+    }
+}
+  </code></pre>
+
+  <p>
+    Initialize <code>dp[i][j]</code> to the edge weight from <code>i</code> to <code>j</code> (or
+    <code>INF</code> if no edge exists), and <code>dp[i][i] = 0</code>. After the three nested loops complete,
+    <code>dp[i][j]</code> holds the shortest distance between <code>i</code> and <code>j</code>.
+  </p>
+
+  <h3>Complexity</h3>
+  <ul>
+    <li>Time: <code>O(V³)</code></li>
+    <li>Space: <code>O(V²)</code></li>
+  </ul>
+
+  <h3>Notes</h3>
+  <ul>
+    <li>
+      Works for graphs with positive and negative edge weights, but <strong>not</strong> for graphs with
+      negative cycles. To detect a negative cycle, check if <code>dp[v][v] &lt; 0</code> for any vertex <code>v</code>
+      after the algorithm finishes.
+    </li>
+    <li>
+      For sparse graphs and non-negative weights, running Dijkstra from each vertex (using a heap)
+      can be faster in practice than Floyd-Warshall.
+    </li>
+  </ul>
+
+  <h3>Small example</h3>
+  <p>
+    Suppose we have three vertices with initial distances:
+  </p>
+  <pre><code>
+    dp =
+    [ [0, 5, INF],
+    [INF, 0, 1],
+    [2, INF, 0] ]
+  </code></pre>
+  <p>Running the Floyd-Warshall loops will correctly fill in the shortest path values between every pair.</p>
+
+  <a href="./graph8.html" class="prevbtn">Previous lesson</a>
+  <a href="./graph10.html" class="nextbtn">Next lesson</a>
+</body>
+</html>

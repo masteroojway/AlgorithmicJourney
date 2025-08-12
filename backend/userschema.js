@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema({
         type: [Number],
         default: Array(7).fill(0),
     },
+    lastPomodoroUpdate: { 
+        type: Date,
+        default: null,
+     }
 
 
 },{timestamps: true})

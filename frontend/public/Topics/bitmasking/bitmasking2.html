@@ -42,7 +42,7 @@
             distance concepts.</p>
         </li>
         <li>
-            <h3>Set of all subsets os a set</h3>
+            <h3>Set of all subsets as a set</h3>
             <p>
                 Each subset of a given array can be represented by a binary number, where each bit indicates whether to include a particular element. 
                 By looping from <code>0</code> to <code>2<sup>n</sup> - 1</code>, we generate all possible combinations. 
@@ -55,7 +55,7 @@
     for (int i = 0; i &lt; (1 &lt;&lt; nums.size()); ++i) {
         vector&lt;int&gt; subset;
         for (int j = 0; j &lt; nums.size(); ++j) {
-            if ((i &gt;&gt; j) &amp; 1) {
+            if ((1 &lt;&lt; j) &amp; i) {
                 subset.push_back(nums[j]);
             }
         }
