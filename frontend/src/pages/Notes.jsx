@@ -9,7 +9,8 @@ const topics = [
   { name: "Binary Search", path: "/Topics/binary_search/binary_search1.html" },
   { name: "Binary Trees", path: "/Topics/binary_trees/binary_trees1.html" },
   { name: "Graph Theory", path: "/Topics/graphs/graph1.html" },
-  { name: "Dynamic Programming", path: "/Topics/dynamic_programming/dynamic_prog1.html" }
+  { name: "Dynamic Programming", path: "/Topics/dynamic_programming/dynamic_prog1.html" },
+  { name: "Object Oriented Programming", path: '/Topics/OOP/oop1.html'}
 ];
 
 const Notes = () => {
