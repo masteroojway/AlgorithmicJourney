@@ -22,7 +22,6 @@ router.get("/template", requireAuth, getTemplates);
 router.put("/template", requireAuth, saveTemplates);
 
 router.get("/pomodoro", requireAuth, async (req, res) => {
-  console.log("📥 GET /pomodoro route hit");
   const user = await User.findById(req.user.id);
   if (!user) return res.status(404).json({ error: "User not found" });
 

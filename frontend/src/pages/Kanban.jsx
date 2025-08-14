@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   DndContext,
   PointerSensor,
-  TouchSensor,          // ✅ add TouchSensor
+  TouchSensor, 
   KeyboardSensor,
   useSensor,
   useSensors,
