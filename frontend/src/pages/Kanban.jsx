@@ -50,7 +50,6 @@ const Card = ({ id, text, onDelete }) => {
       {...attributes}
       {...listeners}
       className={cx(
-        // ✅ touch-none helps mobile drags (prevents browser from hijacking the gesture)
         "group relative touch-none bg-[#0f1012]/70 border border-white/10 rounded-xl px-3 py-2",
         "shadow-[0_0_12px_rgba(0,0,0,0.25)] hover:shadow-[0_0_18px_rgba(77,184,255,0.25)]",
         "transition-all hover:scale-[1.01] hover:border-white/20 select-none cursor-grab active:cursor-grabbing",
@@ -65,7 +64,7 @@ const Card = ({ id, text, onDelete }) => {
                    bg-[#1c1c1c] border border-white/10 hover:bg-[#2a2a2a]
                    transition-opacity"
       >
-        ×
+        x
       </button>
 
       <div className="flex items-center gap-2 pr-8">
@@ -101,7 +100,6 @@ const Column = ({ title, badge, items, loading, id, onQuickAdd, children }) => {
       <div
         ref={setNodeRef}
         className={cx(
-          // ✅ touch-none here improves dropping into empty/large spaces on mobile
           "mt-3 space-y-2.5 min-h-[48px] transition-colors touch-none",
           isOver && "bg-white/5 rounded-xl"
         )}
@@ -125,7 +123,6 @@ export default function Kanban() {
   const [adding, setAdding] = useState(false);
   const addRef = useRef(null);
 
-  // ✅ Sensors: TouchSensor with a small delay to distinguish scroll vs drag
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor,   { activationConstraint: { delay: 150, tolerance: 5 } }),
@@ -184,7 +181,7 @@ export default function Kanban() {
     return null;
   };
 
-  /* add / delete */
+
   const handleAdd = async (e) => {
     e?.preventDefault?.();
     const text = newText.trim();
@@ -217,7 +214,6 @@ export default function Kanban() {
     await persist(next);
   };
 
-  /* drag & drop */
   const onDragStart = ({ active }) => setActiveId(active.id);
 
   const onDragEnd = ({ active, over }) => {
@@ -245,7 +241,7 @@ export default function Kanban() {
     const fromIdx = fromList.findIndex((x) => x.id === active.id);
     const [moved] = fromList.splice(fromIdx, 1);
 
-    let insertAt = toList.length; // append if dropped on column body
+    let insertAt = toList.length;
     if (!Object.values(COLS).includes(over.id)) {
       const overIdx = toList.findIndex((x) => x.id === over.id);
       insertAt = overIdx >= 0 ? overIdx : toList.length;
@@ -257,7 +253,6 @@ export default function Kanban() {
     persist(next);
   };
 
-  /* render */
   return (
     <div className="min-h-screen bg-[#0b0c0f] text-white font-sans relative flex flex-col overflow-x-visible">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#101114] via-[#0b0b0c] to-[#050506] animate-pulse opacity-80 blur-sm z-0" />
@@ -306,7 +301,6 @@ export default function Kanban() {
               </button>
             </form>
 
-            {/* Bulk clear completed */}
             <div className="mt-3 flex justify-end">
               <button
                 onClick={clearCompleted}
@@ -319,7 +313,6 @@ export default function Kanban() {
           </div>
         </div>
 
-        {/* Columns */}
         <section className="w-full max-w-6xl mx-auto">
           <DndContext
             sensors={sensors}

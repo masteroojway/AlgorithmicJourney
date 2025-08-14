@@ -5,10 +5,8 @@ dotenv.config();
 
 export function requireAuth(req, res, next) {
   const header = req.headers.authorization;
-  console.log("🛡️ Auth header received:", header);
 
   if (!header || !header.startsWith("Bearer ")) {
-    console.log("❌ Invalid or missing Bearer token");
     return res.status(401).json({ error: "Unauthorized" });
   }
 
@@ -16,10 +14,8 @@ export function requireAuth(req, res, next) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     req.user = decoded;
-    console.log("🔓 Auth success:", decoded.email);
     next();
   } catch (err) {
-    console.log("❌ Token verification failed:", err.message);
     return res.status(401).json({ error: "Invalid token" });
   }
 }
